@@ -1,0 +1,172 @@
+<div class="modal-background" (click)="onCancel()"></div>
+<dialog id="newCustomerDialog" open class="box" style="width: 80%; margin-right: 2%">
+    <div class="modal-content">
+        <h3 class="title is-3">Edit Customer</h3>
+        <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="name">Name</label> 
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="text" id="name" name="name" [(ngModel)]="selectedCustomer().name" required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-expanded">
+                    <label class="label" for="tax_identification_number">Tax Identification number</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="text" id="tax_identification_number" name="tax_identification_number" [(ngModel)]="selectedCustomer().tax_identification_number"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="tax_identification_type">Tax Identification Type</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="text" id="tax_identification_type" name="tax_identification_type" [(ngModel)]="selectedCustomer().tax_identification_type"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="tax_regime">Tax Regime</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="text" id="tax_regime" name="tax_regime" [(ngModel)]="selectedCustomer().tax_regime"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="annual_revenue">Annual Revenue</label>
+                </div>
+                <div class="field-body">
+                    <div class="field has-addons">
+                        <span class="select">
+                            <select id="currency" name="currency" [(ngModel)]="selectedCustomer().currency">
+                                <option>BRL</option>
+                                <option>EUR</option>
+                            </select>
+                        </span>
+                        <div class="control">
+                            <input class="input" type="text" id="annual_revenue" name="annual_revenue" [(ngModel)]="selectedCustomer().annual_revenue"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="country">Country</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <div class="select" >
+                                <select id="country" name="country" [(ngModel)]="selectedCustomer().country">
+                                    <option>Brasil</option>
+                                    <option>Portugal</option>
+                                    <option>Germany</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="address">Address</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="text" id="address" name="address" [(ngModel)]="selectedCustomer().address"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="postal_code">Postal Code</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="text" id="postal_code" name="postal_code" [(ngModel)]="selectedCustomer().postal_code"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="business-sector">Business Sector</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="text" id="business-sector" name="business-sector" [(ngModel)]="selectedCustomer().business_sector"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="establishment_date">Establishment Date</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="date" id="establishment_date" name="establishment_date" [(ngModel)]="selectedCustomer().establishment_date"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="notes">Notes</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <textarea class="textarea" id="notes" rows="10" name="notes" [(ngModel)]="selectedCustomer().notes"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label">
+                <!-- Left empty for spacing -->
+                </div>
+                <div class="field-body">
+                    <div class="field is-grouped is-grouped-right">
+                        <p class="control">
+                            <button class="button is-primary" type="submit">
+                                Save
+                            </button>
+                        </p>
+                        <p class="control">
+                            <button class="button is-light" type="button" (click)="onCancel()">
+                                Cancel
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</dialog>

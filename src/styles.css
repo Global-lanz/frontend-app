@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+@import "https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css";
+:root {
+	--bulma-primary-h: 173deg;
+	--bulma-primary-s: 58%;
+	--bulma-primary-l: 39%;
+	--bulma-scheme-h: 197.33;
+	--bulma-scheme-s: 23.73%;
+  }
+  
+  .menu {
+	--bulma-menu-item-h: 197.33;
+	--bulma-menu-item-s: 37.19%;
+	--bulma-menu-item-background-l: 23.73%;
+	--bulma-menu-item-hover-background-l-delta: 5%;
+	--bulma-menu-item-color-l: 100%;
+	--bulma-menu-item-selected-h: 172.7deg;
+	--bulma-menu-item-selected-s: 57.79%;
+	--bulma-menu-item-selected-background-l: 39.02%;
+	--bulma-menu-label-color: hsl(0, 0%, 91.37%);
+  }
+
+  html, body {
+
+	height: 100%; margin: 0 0 0 0; padding: 0 0 0 0; }
+
+

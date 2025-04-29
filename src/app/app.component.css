@@ -1,0 +1,52 @@
+
+.grid-container {
+	padding: 0;
+	margin: 0;
+	display: grid;
+	width: 100%;
+	height: 100vh;
+}
+/* 3-spaltiges Layout für breitere Viewports */
+
+@media (min-width: 5em) {
+	.grid-container {
+		display: grid;
+		grid-template-areas: 
+		"header header"
+		"nav main"
+		"footer footer";
+		grid-template-columns: 1fr 4fr;
+		grid-template-rows: auto 1fr auto;
+	}
+}
+
+/* borders + padding*/
+header,
+nav,
+main,
+article,
+section,
+aside,
+footer {
+	padding:0.5em;
+}
+
+/* elements */
+header {
+	background: #2a9d8f;
+	grid-area: header;
+}
+footer {
+	grid-area: footer;
+	background: #2a9d8f;
+}
+nav {
+	background: #264653;
+	grid-area: nav;
+}
+main {
+	background: #e9e9e9;
+	grid-area: main;
+	overflow-y: auto;
+}
+

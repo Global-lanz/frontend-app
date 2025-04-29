@@ -1,0 +1,175 @@
+<div class="modal-background" (click)="onCancel()"></div>
+<dialog id="newContractDialog" open class="box" style="width: 80%; margin-right: 2%">
+    <div class="modal-content">
+        <h3 class="title is-3">New Contract</h3>
+        <form #form="ngForm" >
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="name">Customer</label> 
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input is-static" type="text" value="{{customerName()}}" readonly/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="total_amount">Total Amount</label>
+                </div>
+                <div class="field-body">
+                    <div class="field has-addons">
+                        <div class="control">
+                            <a class="button is-static">{{customerCurrency()}}</a>
+                        </div>
+                        <div class="control">
+                            <input class="input" type="text" id="total_amount" name="total_amount" ngModel/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="contract_type">Contract Type</label> 
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <div class="select" >
+                                <select id="contract_type" name="contract_type" ngModel>
+                                    <option>Quote</option>
+                                    <option>Contract</option>
+                                    <option>Ammendment Quote</option>
+                                    <option>Ammendment Contract</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label">
+                    <!-- Left empty for spacing -->
+                    </div>
+                <div class="field-label is-normal">
+                    <label class="label" for="frequency">Frequency</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <div class="select" >
+                                <select id="frequency" name="frequency" ngModel>
+                                    <option>Monthly</option>
+                                    <option>Yearly</option>
+                                    <option>Once</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field-label is-normal">
+                    <label class="label" for="payment_day">Payment Day</label> 
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="text" id="payment_day" ngModel/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label">
+                    <!-- Left empty for spacing -->
+                    </div>
+                <div class="field-label is-normal">
+                    <label class="label" for="start_date">Start Date</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="date" id="start_date" name="start_date" ngModel/>
+                        </div>
+                    </div>
+                </div>
+                <div class="field-label is-normal">
+                    <label class="label" for="end_date">End Date</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="date" id="end_date" name="end_date" ngModel/>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="termination_clause">Termination Clause</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <textarea class="textarea" id="termination_clause" rows="5" name="termination_clause" ngModel></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="penalty_fee">Penalty [% of outstanding amount]</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="number" id="penalty_fee" name="penalty_fee" ngModel/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="status">Status</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <div class="select" >
+                                <select id="status" name="status" [(ngModel)]='ngDefaultStatus'>
+                                    <option>Quotation</option>
+                                    <option>Awaiting Signature</option>
+                                    <option>Signed</option>
+                                    <option>Running</option>
+                                    <option>Cancelled</option>
+                                    <option>Finished</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label">
+                <!-- Left empty for spacing -->
+                </div>
+                <div class="field-body">
+                    <div class="field is-grouped is-grouped-right">
+                        <p class="control">
+                            <button class="button is-primary" type="submit">
+                                Create
+                            </button>
+                        </p>
+                        <p class="control">
+                            <button class="button is-light" type="button" (click)="onCancel()">
+                                Cancel
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</dialog>

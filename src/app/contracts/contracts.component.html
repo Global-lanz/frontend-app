@@ -1,0 +1,94 @@
+@if (isAddingContract()) {
+    <app-new-contract [customer]="customer()" [customerName]="getCustomerName(customer())" [customerCurrency]="getCustomerCurrency(customer())" (cancel)="onCancelAddContract()" (add)="onAddContract($event)"/>
+}
+
+<header>
+    <!-- <p>{{uniqueCustomerIds}}</p> -->
+     <menu>
+        <div class="field is-horizontal">
+            <div class="field-body">
+                <button class="button is-primary" [disabled]="!customer()" (click)="onStartAddContract()" (mouseenter)="hoverCreate = true" (mouseleave)="hoverCreate = false">
+                    <span class="icon">
+                        <i class="fa-solid fa-plus" [class.fa-beat]="hoverCreate"></i>
+                    </span>
+                    <span>Create Contract</span>
+                </button>
+            </div>
+            <div class="field-label is-normal ">
+                <label class="label" for="CustomerSelect">Customer</label>
+            </div>
+            <div class="field-body">
+                <div class="select">
+                    <select id="CustomerSelect" [(ngModel)]="selectCustomerValue">
+                        <option routerLink="./" [queryParams]="{customer: undefined}">Show All</option>
+                        @for (customer of customers; track customer.id){
+                            <option routerLink="./" [queryParams]="{customer: customer.id}">{{customer.name}}</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="field-label is-normal">
+                <label class="label" for="SortOptions">Sort by</label>
+            </div>
+            <div class="field-body has-addons">
+                <p class="select">
+                    <select id="SortOptions">
+                        <option routerLink="./" [queryParams]="{sortBy: 'total_amount'}" queryParamsHandling="merge">Total Amount</option>
+                        <option routerLink="./" [queryParams]="{sortBy: 'contract_id'}" queryParamsHandling="merge">Contract Id</option>
+                    </select>
+                </p>
+                <p class="control">
+                  <button class="button" routerLink="./" [queryParams]="{sort: 'asc'}" queryParamsHandling="merge">
+                    <span class="icon is-small" >
+                        <i class="fa-solid fa-arrow-up-wide-short"></i>
+                    </span>
+                  </button>
+                </p>
+                <p class="control">
+                  <button class="button" routerLink="./" [queryParams]="{sort: 'desc'}" queryParamsHandling="merge">
+                    <span class="icon is-small">
+                        <i class="fa-solid fa-arrow-down-wide-short"></i>
+                    </span>
+                  </button>
+                </p>
+            </div>
+        </div>
+     </menu>
+</header>
+
+@if (contracts.length !== 0) {
+    <div>
+        <ul id="contracts">
+            @for (contract of contracts | sort:sortBy():sort() ; track contract.contract_id) {
+                <div class="box my-1">
+                    <p>{{contract.contract_id}}</p>
+                </div>
+            }
+        </ul>
+    </div>
+} @else {
+    <p class="content is-large m-6">No Contracts found</p>
+}
+
+
+
+
+<!-- custom dropdown variant -->
+    <!-- <div class="dropdown" [class.is-active]="show_dropdown">
+        <div class="dropdown-trigger">
+            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu" (click)="toggleDropdown()">
+                <span>Customer</span>
+                <span class="icon is-small">
+                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+            </button>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu" role="menu">
+            <div class="dropdown-content">
+                <a class="dropdown-item" routerLink="./" [queryParams]=undefined (click)="toggleDropdown()">Show All</a>
+                @for (opt_id of uniqueCustomerIds; track uniqueCustomerIds){
+                    <a class="dropdown-item" routerLink="./" [queryParams]="{customer: opt_id}" (click)="toggleDropdown()">{{getCustomerName(opt_id)}}</a>
+                }
+            </div>
+        </div>
+    </div> -->
