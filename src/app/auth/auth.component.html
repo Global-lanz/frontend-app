@@ -1,7 +1,16 @@
 <div class="modal is-active">
     <div class="modal-background"></div>
     <div class="modal-content">
+
         <form #authForm="ngForm" class="box" (ngSubmit)="onSubmit(authForm)">
+          @if(errorMessage) {
+            <div class="message is-danger">
+              <div class="message-body">
+                <p >{{ errorMessage }}</p>
+              </div>
+            </div>
+          }
+
             <div class="field">
               <label class="label" for="email">Email</label>
               <div class="control">
@@ -20,6 +29,9 @@
           </form>
     </div>
 </div>
+
+ 
+
 
 
 

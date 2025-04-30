@@ -22,7 +22,7 @@ export const routes: Routes = [
         title: 'Manage Contracts',
         component: ContractsComponent,
     },
-    {   path: 'auth',
+    {   path: 'authentication',
         title: 'Login',
         component: AuthComponent 
     }
