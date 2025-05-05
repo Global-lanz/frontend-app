@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AuthService } from '../app/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -8,4 +9,11 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
   hoverLogo = false;
+
+  private authService = inject(AuthService)
+
+
+  onLogout() {
+    this.authService.logout();
+  }
 }

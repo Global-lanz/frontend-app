@@ -5,6 +5,9 @@ export class User {
     ) {}
 
     get token() {
+        if (this._token === null) {
+            return null;
+        }
         return this._token;
     }
 }

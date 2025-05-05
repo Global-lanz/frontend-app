@@ -1,7 +1,8 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
-import { BehaviorSubject, catchError, Subject, tap, throwError } from "rxjs";
+import { BehaviorSubject, tap } from "rxjs";
 import { User } from "./user.model";
+import { Router } from "@angular/router";
 
 export interface AuthResponseData {
     token: string;
@@ -12,13 +13,14 @@ export interface AuthResponseData {
   providedIn: 'root',
 })
 export class AuthService {
-    user = new Subject<User>();
+    user = new BehaviorSubject<User | null>(null);
 
-    http = inject(HttpClient);
+    private http = inject(HttpClient);
+    private router = inject(Router);
     baseUrl = 'http://localhost:8080';
 
     login(email:string, password: string) {
-        return this.http.post<AuthResponseData>('http://localhost:8080/authentication/login',
+        return this.http.post<AuthResponseData>(`${this.baseUrl}/authentication/login`,
             {
                 username: email,
                 password: password,
@@ -32,7 +34,9 @@ export class AuthService {
     }
 
     logout() {
-        localStorage.removeItem('authUser');
+        // this.user.next(null);
+        localStorage.removeItem('userData');
+        this.router.navigate(['/authentication']);
     }
 
     private handleAuthentication(
@@ -41,7 +45,21 @@ export class AuthService {
     ) {
         const user = new User(email, token);
         this.user.next(user);
+        //todo implement token expiration
+        //todo use a safer way to store the token
         localStorage.setItem('userData',JSON.stringify(user));
     }
+
+    // autoLogin() {
+    //     const userData: {
+    //         email: string;
+    //         _token: string;
+    //     } = JSON.parse(localStorage.getItem('userData')!);
+    //     if (!userData) {
+    //         return;
+    //     }
+    //     const loadedUser = new User(userData.email, userData._token);
+    //     this.user.next(loadedUser);
+    // }
 
 }

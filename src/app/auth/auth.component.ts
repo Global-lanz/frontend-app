@@ -13,12 +13,10 @@ export class AuthComponent {
   isLoading = false;
   errorMessage: string | null = null
 
-  constructor(private router: Router) {}
-
+  private router = inject(Router);
   private authService = inject(AuthService);
   
   
-
   onSubmit(form:NgForm) {
     if(!form.valid){
       return;
