@@ -48,18 +48,18 @@ export class ContractsComponent {
 
   //helper method to return name instead id in the dropdown, move to service
   getCustomer(customerId: string | undefined) {
-    const customer = this.customers.find(cust => cust.id === customerId);
+    const customer = this.customers().find(cust => cust.customerId === customerId);
     return customer ? customer : customerId || undefined;
   }
 
   getCustomerName(customerId: string | undefined) {
-    const customer = this.customers.find(cust => cust.id === customerId);
+    const customer = this.customers().find(cust => cust.customerId === customerId);
     return customer ? customer.name : customerId || undefined;
   }
 
   getCustomerCurrency(customerId: string | undefined) {
-    const customer = this.customers.find(cust => cust.id === customerId);
-    return customer ? customer.currency : customerId || undefined;
+    const customer = this.customers().find(cust => cust.customerId === customerId);
+    return customer ? customer.currencyId : customerId || undefined;
   }
 
   //to show correct selected value when coming from customers; todo understand what else should be in ngOnInit

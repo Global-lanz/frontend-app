@@ -1,32 +1,90 @@
 <div class="modal is-active">
     <div class="modal-background"></div>
     <div class="modal-content">
+        @if(signUpSuccess) {
+          <div class="message is-primary">
+            <div class="message-body">
+              An activation email has been sent to your email address. Please check your inbox and click the link to activate your account.
+            </div>
+          </div>
+        } @else {
+          <form #authForm="ngForm" class="box" (ngSubmit)="onSubmit(authForm)">
+            @if(errorMessage) {
+              <div class="message is-danger">
+                <div class="message-body">
+                  <p >{{ errorMessage }}</p>
+                </div>
+              </div>
+            }
+            @if(isSignUp) {
+              <div class="message is-info">
+                <div class="message-body">
+                  You can only sign up by registering a new company!
+                  If you want to join an existing company, please contact the company admin to send you an invitation link.
+                </div>
+              </div>
+              <div class="field">
+                <label class="label" for="companyName">Company</label>
+                <div class="control">
+                  <input class="input" type="text" id="companyName" placeholder="ACME SocialMedia Inc." name="companyName" ngModel required/>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label" for="name">Name</label>
+                <div class="control">
+                  <input class="input" type="text" id="name" placeholder="Joe Doe" name="name" ngModel required/>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label" for="email">Email</label>
+                <div class="control">
+                  <input class="input" type="email" id="email" placeholder="e.g. joe@example.com" name="email" ngModel required email/>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label" for="password">Password</label>
+                <div class="control">
+                  <input class="input" type="password" placeholder="********" id="password" name="password" #password="ngModel" ngModel required/>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label" for="confirmPassword">Confirm Password</label>
+                <div class="control">
+                  <input class="input" type="password" placeholder="********" id="confirmPassword" name="confirmPassword" #confirmPassword="ngModel" ngModel required/>
+                </div>
+              </div>
+              <div [hidden]="(password.pristine || confirmPassword.pristine) || password.value === confirmPassword.value" class="message is-danger">
+                <div class="message-body">
+                  <p >Passwords do not match!</p>
+                </div>
 
-        <form #authForm="ngForm" class="box" (ngSubmit)="onSubmit(authForm)">
-          @if(errorMessage) {
-            <div class="message is-danger">
-              <div class="message-body">
-                <p >{{ errorMessage }}</p>
               </div>
-            </div>
-          }
-
-            <div class="field">
-              <label class="label" for="email">Email</label>
-              <div class="control">
-                <input class="input" type="email" id="email" placeholder="e.g. joe@example.com" name="email" ngModel required/>
+            
+              <button class="button is-primary" type="submit" [disabled]="!authForm.valid  || (password.value !== confirmPassword.value)" [class.is-loading]="isLoading">Sign Up</button>
+              <div class="level-right">
+                <a (click)="isSignUp=false">Already have an account? Click here to login!</a>
               </div>
-            </div>
-          
-            <div class="field">
-              <label class="label" for="password">Password</label>
-              <div class="control">
-                <input class="input" type="password" placeholder="********" id="password" name="password" ngModel required/>
+            } @else {
+              <div class="field">
+                <label class="label" for="email">Email</label>
+                <div class="control">
+                  <input class="input" type="email" id="email" placeholder="e.g. joe@example.com" name="email" ngModel required email/>
+                </div>
               </div>
-            </div>
-          
-            <button class="button is-primary" type="submit" [disabled]="!authForm.valid">Login</button>
-          </form>
+              <div class="field">
+                <label class="label" for="password">Password</label>
+                <div class="control">
+                  <input class="input" type="password" placeholder="********" id="password" name="password" ngModel required/>
+                </div>
+              </div>
+            
+              <button class="button is-primary" type="submit" [disabled]="!authForm.valid" [class.is-loading]="isLoading">Login</button>
+              <div class="level-right">
+                <a (click)="isSignUp=true">No Account yet? Click here to register your company!</a>
+              </div>
+            }
+            </form>
+        }
     </div>
 </div>
 

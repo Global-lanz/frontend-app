@@ -10,7 +10,9 @@ import { AuthService } from '../app/auth/auth.service';
 export class HeaderComponent {
   hoverLogo = false;
 
-  private authService = inject(AuthService)
+  private authService = inject(AuthService);
+
+  user = this.authService.user;
 
 
   onLogout() {

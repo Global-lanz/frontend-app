@@ -18,7 +18,7 @@ export class DetailCustomerComponent {
   customerId = input.required<string>();
   delete = output<string>();
 
-  selectedCustomer = computed(() => this.customersService.customers.find(u => u.id === this.customerId()) as Customer);
+  selectedCustomer = computed(() => this.customersService.customers().find(u => u.customerId === this.customerId()) as Customer);
 
   isEditingCustomer = signal<Boolean>(false)
 
@@ -35,11 +35,11 @@ export class DetailCustomerComponent {
   }
   
   onEditCustomer(customerData: Customer) {
-    this.customersService.customers.map(u => u.id === this.customerId() ? {...u,...customerData} : u);
+    this.customersService.customers().map(u => u.customerId === this.customerId() ? {...u,...customerData} : u);
     this.isEditingCustomer.set(false);
   }
 
   onDeleteCustomer() {
-    this.delete.emit(this.selectedCustomer().id);
+    this.delete.emit(this.selectedCustomer().customerId!);
   }
 }

@@ -3,7 +3,7 @@ import { provideRouter, withComponentInputBinding, withRouterConfig } from '@ang
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 import { routes } from './app.routes';
-import { errorInterceptor, loggingInterceptor } from './interceptors';
+import { authInterceptor, errorInterceptor, loggingInterceptor } from './interceptors';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,6 +14,6 @@ export const appConfig: ApplicationConfig = {
       withRouterConfig({defaultQueryParamsHandling: "replace"}),
     ),
     provideHttpClient(
-      withInterceptors([loggingInterceptor,errorInterceptor])),
+      withInterceptors([loggingInterceptor,errorInterceptor,authInterceptor])),
   ]
 };

@@ -21,8 +21,8 @@
                 <div class="select">
                     <select id="CustomerSelect" [(ngModel)]="selectCustomerValue">
                         <option routerLink="./" [queryParams]="{customer: undefined}">Show All</option>
-                        @for (customer of customers; track customer.id){
-                            <option routerLink="./" [queryParams]="{customer: customer.id}">{{customer.name}}</option>
+                        @for (customer of customers(); track customer.customerId){
+                            <option routerLink="./" [queryParams]="{customer: customer.customerId}">{{customer.name}}</option>
                         }
                     </select>
                 </div>

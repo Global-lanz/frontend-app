@@ -1,15 +1,15 @@
 export interface Customer {
-    id: string;
+    customerId: string;
     name: string;
-    tax_identification_number: string;
-    tax_identification_type: string;
-    tax_regime: string;
-    annual_revenue: number;
-    currency: string;
+    taxIdentificationNumber: string;
+    taxIdentificationType: string;
+    taxRegime: string;
+    annualRevenue: number;
     country: string;
     address: string;
-    postal_code: string;
-    business_sector: string;
-    establishment_date: string;
+    postalCode: string;
+    businessSector: string;
+    establishmentDate: string;
     notes: string;
+    currencyId: string;
 }

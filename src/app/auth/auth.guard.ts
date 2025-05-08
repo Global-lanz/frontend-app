@@ -20,20 +20,14 @@ import {
       route: ActivatedRouteSnapshot,
       router: RouterStateSnapshot
     ):
-      | boolean
-      | UrlTree
-      | Promise<boolean | UrlTree>
-      | Observable<boolean | UrlTree> {
-      return this.authService.user.pipe(
-        take(1),
-        map(user => {
-          const isAuth = !!user;
+      boolean | UrlTree {
+        const user = this.authService.user();
+        const isAuth = !!user;
+          
           if (isAuth) {
             console.log('User is authenticated');
             return true;
           }
           return this.router.createUrlTree(['/authentication']);
-        })
-      );
+        }
     }
-  }

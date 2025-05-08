@@ -22,19 +22,19 @@ export class EditCustomerComponent {
       }
       // console.log(formData);
       this.edit.emit({
-        id: this.selectedCustomer().id,
+        customerId: this.selectedCustomer().customerId,
         name: formData.form.value.name || '',
-        tax_identification_number: formData?.form.value.tax_identification_number || '',
-        tax_identification_type: formData?.form.value.tax_identification_type || '',
-        tax_regime: formData?.form.value.tax_regime || '',
-        annual_revenue: Number(formData?.form.value.annual_revenue) || 0,
-        currency: formData?.form.value.currency || '',
+        taxIdentificationNumber: formData?.form.value.tax_identification_number || '',
+        taxIdentificationType: formData?.form.value.tax_identification_type || '',
+        taxRegime: formData?.form.value.tax_regime || '',
+        annualRevenue: Number(formData?.form.value.annual_revenue) || 0,
         country: formData?.form.value.country || '',
         address: formData?.form.value.adress || '',
-        postal_code: formData?.form.value.postal_code || '',
-        business_sector: formData?.form.value.business_sector || '',
-        establishment_date: formData?.form.value.establishment_date || '',
+        postalCode: formData?.form.value.postal_code || '',
+        businessSector: formData?.form.value.business_sector || '',
+        establishmentDate: formData?.form.value.establishment_date || '',
         notes: formData?.form.value.notes || '',
+        currencyId: formData?.form.value.currency || '',
       })
     }
 

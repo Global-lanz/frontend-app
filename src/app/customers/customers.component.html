@@ -44,7 +44,7 @@
 
 <div>
     <ul id="customers">
-        @for (customer of customers | sort:sortBy():sort(); track customer.id) {
+        @for (customer of customers() | sort:sortBy():sort(); track customer.id) {
                 <app-customer [customer]="customer" />
         }
     </ul>

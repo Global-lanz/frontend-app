@@ -1,0 +1,25 @@
+<div class="modal is-active">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        @if(isSuccess) {
+            <div class="message is-success">
+                <div class="message-body">
+                    <p>Your account has been activated successfully</p>
+                    <a [routerLink]="['/authentication']">Click here to login</a>
+                </div>
+            </div>
+        } @else if(errorMessage){
+            <div class="message is-danger">
+                <div class="message-body">
+                    <p>{{errorMessage}}</p>
+                </div>
+            </div>
+        } @else {
+            <div class="message is-info">
+                <div class="message-body">
+                    Your account is being activated. Please wait...
+                </div>
+            </div>
+        }
+    </div>
+</div>

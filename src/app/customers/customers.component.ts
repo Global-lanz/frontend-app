@@ -32,8 +32,16 @@ export class CustomersComponent {
   }
 
   onAddCustomer(customerData: Customer) {
-    this.customers.push(customerData)
-    this.isAddingCustomer.set(false);
+    // this.customers.push(customerData)
+    // this.isAddingCustomer.set(false);
+  }
+
+  ngOnInit(): void {
+    //fetch customers on init
+    this.customersService.getAllCustomers().subscribe({
+      next: () => console.log('Customers fetched successfully'),
+      error: error => console.error('Error fetching customers', error)
+    });
   }
 
 

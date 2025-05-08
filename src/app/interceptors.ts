@@ -1,5 +1,10 @@
 import { HttpErrorResponse, HttpEvent, HttpEventType, HttpHandlerFn, HttpRequest } from "@angular/common/http";
+import { inject } from "@angular/core";
 import { catchError, Observable, tap, throwError } from "rxjs";
+import { AuthService } from "./auth/auth.service";
+
+
+
 
 //for debugging
 export function loggingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
@@ -20,3 +25,17 @@ export function errorInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn)
     );
 }
 
+export function authInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
+  const authService = inject(AuthService);
+  const user = authService.user();
+  if (user && user.token) {
+    const modifiedReq = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${user.token}`
+      }
+    });
+    console.log('token added');
+    return next(modifiedReq);
+  }
+  return next(req);
+}

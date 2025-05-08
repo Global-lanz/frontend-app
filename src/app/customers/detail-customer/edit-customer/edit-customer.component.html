@@ -22,7 +22,7 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input class="input" type="text" id="tax_identification_number" name="tax_identification_number" [(ngModel)]="selectedCustomer().tax_identification_number"/>
+                            <input class="input" type="text" id="tax_identification_number" name="tax_identification_number" [(ngModel)]="selectedCustomer().taxIdentificationNumber"/>
                         </div>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input class="input" type="text" id="tax_identification_type" name="tax_identification_type" [(ngModel)]="selectedCustomer().tax_identification_type"/>
+                            <input class="input" type="text" id="tax_identification_type" name="tax_identification_type" [(ngModel)]="selectedCustomer().taxIdentificationType"/>
                         </div>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input class="input" type="text" id="tax_regime" name="tax_regime" [(ngModel)]="selectedCustomer().tax_regime"/>
+                            <input class="input" type="text" id="tax_regime" name="tax_regime" [(ngModel)]="selectedCustomer().taxRegime"/>
                         </div>
                     </div>
                 </div>
@@ -58,13 +58,13 @@
                 <div class="field-body">
                     <div class="field has-addons">
                         <span class="select">
-                            <select id="currency" name="currency" [(ngModel)]="selectedCustomer().currency">
+                            <select id="currency" name="currency" [(ngModel)]="selectedCustomer().currencyId">
                                 <option>BRL</option>
                                 <option>EUR</option>
                             </select>
                         </span>
                         <div class="control">
-                            <input class="input" type="text" id="annual_revenue" name="annual_revenue" [(ngModel)]="selectedCustomer().annual_revenue"/>
+                            <input class="input" type="text" id="annual_revenue" name="annual_revenue" [(ngModel)]="selectedCustomer().annualRevenue"/>
                         </div>
                     </div>
                 </div>
@@ -106,7 +106,7 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input class="input" type="text" id="postal_code" name="postal_code" [(ngModel)]="selectedCustomer().postal_code"/>
+                            <input class="input" type="text" id="postal_code" name="postal_code" [(ngModel)]="selectedCustomer().postalCode"/>
                         </div>
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input class="input" type="text" id="business-sector" name="business-sector" [(ngModel)]="selectedCustomer().business_sector"/>
+                            <input class="input" type="text" id="business-sector" name="business-sector" [(ngModel)]="selectedCustomer().businessSector"/>
                         </div>
                     </div>
                 </div>
@@ -130,7 +130,7 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input class="input" type="date" id="establishment_date" name="establishment_date" [(ngModel)]="selectedCustomer().establishment_date"/>
+                            <input class="input" type="date" id="establishment_date" name="establishment_date" [(ngModel)]="selectedCustomer().establishmentDate"/>
                         </div>
                     </div>
                 </div>

@@ -16,21 +16,21 @@
 
 <div class="box">
     <h2 class="title is-4"><p>{{ selectedCustomer().name }}</p></h2>
-    <p>{{ selectedCustomer().id }}</p>
-    <p>{{ selectedCustomer().tax_identification_number }}</p>
-    <p>{{ selectedCustomer().tax_identification_type }}</p>
-    <p>{{ selectedCustomer().tax_regime }}</p>
-    <p>{{ selectedCustomer().annual_revenue }} {{ selectedCustomer().currency }}</p>
+    <p>{{ selectedCustomer().customerId }}</p>
+    <p>{{ selectedCustomer().taxIdentificationNumber }}</p>
+    <p>{{ selectedCustomer().taxIdentificationType }}</p>
+    <p>{{ selectedCustomer().taxRegime }}</p>
+    <p>{{ selectedCustomer().annualRevenue }} {{ selectedCustomer().currencyId }}</p>
     <p>{{ selectedCustomer().country }}</p>
     <p>{{ selectedCustomer().address }}</p>
-    <p>{{ selectedCustomer().postal_code }}</p>
-    <p>{{ selectedCustomer().establishment_date }}</p>
+    <p>{{ selectedCustomer().postalCode }}</p>
+    <p>{{ selectedCustomer().establishmentDate }}</p>
     <p>{{ selectedCustomer().notes }}</p>
     <p>Contacts: here will be cards with Contacts and a button to add new contact</p>
 
     <div class="field is-grouped is-grouped-right">
         <p class="control">
-            <button class="button is-primary" routerLink="/contracts" [queryParams]="{customer: selectedCustomer()!.id}">
+            <button class="button is-primary" routerLink="/contracts" [queryParams]="{customer: selectedCustomer()!.customerId}">
                 Contracts
             </button>
         </p>
