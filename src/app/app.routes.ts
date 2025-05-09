@@ -10,7 +10,7 @@ import { ActivationComponent } from './auth/activation/activation.component';
 export const routes: Routes = [
     //todo 404 page
     //todo maybe add a welcome page instead of redirecting to customers
-    { path: '', redirectTo: '/customers', pathMatch: 'full' },
+
     {
         path: 'customers',
         title: 'Manage Customers',
@@ -39,6 +39,10 @@ export const routes: Routes = [
         path: 'authentication/activation/:activationToken',
         title: 'Account Activation',
         component: ActivationComponent,
-    }
+    },
+    {   path: '', 
+        redirectTo: '/customers', 
+        pathMatch: 'full' 
+    },
 
 ];

@@ -21,14 +21,14 @@ export class NewCustomerComponent {
     }
     // console.log(formData);
     this.add.emit({
-      customerId: Date.now().toString(),
+      customerId: 'temp',
       name: formData.form.value.name || '',
       taxIdentificationNumber: formData?.form.value.tax_identification_number || '',
       taxIdentificationType: formData?.form.value.tax_identification_type || '',
       taxRegime: formData?.form.value.tax_regime || '',
       annualRevenue: Number(formData?.form.value.annual_revenue) || 0,
       country: formData?.form.value.country || '',
-      address: formData?.form.value.adress || '',
+      address: formData?.form.value.address || '',
       postalCode: formData?.form.value.postal_code || '',
       businessSector: formData?.form.value.business_sector || '',
       establishmentDate: formData?.form.value.establishment_date || '',

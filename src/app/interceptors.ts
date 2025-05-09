@@ -25,6 +25,7 @@ export function errorInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn)
     );
 }
 
+//adding token to request
 export function authInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
   const authService = inject(AuthService);
   const user = authService.user();

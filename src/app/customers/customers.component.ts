@@ -17,11 +17,14 @@ export class CustomersComponent {
   sort = input<'asc' | 'desc'>('asc');
   sortBy = input<string>('name');
   hoverCreate = false;
+  isAddingCustomer = signal<Boolean>(false);
+  isFetching = signal<Boolean>(true);
+  errorMessage = signal<string | null>(null);
 
   private customersService = inject(CustomersService);
   customers = this.customersService.customers;
 
-  isAddingCustomer = signal<Boolean>(false)
+  
 
   onStartAddCustomer() {
     this.isAddingCustomer.set(true);
@@ -32,15 +35,36 @@ export class CustomersComponent {
   }
 
   onAddCustomer(customerData: Customer) {
-    // this.customers.push(customerData)
-    // this.isAddingCustomer.set(false);
+    this.isFetching.set(true);
+    this.customersService.newCustomer(customerData).subscribe({
+      next: () => {
+        console.log('Customer added successfully');
+        this.customersService.getAllCustomers().subscribe({
+          next: () => console.log('Customers refetched successfully'),
+          error: error => {
+            console.error('Error refetching customers', error);
+            this.errorMessage.set(error.message);
+          },
+          complete: () => {this.isFetching.set(false)},
+        });
+      },
+      error: error => {
+        console.error('Error adding customer', error);
+        this.errorMessage.set(error.message);
+      },
+    });
+    this.isAddingCustomer.set(false);
   }
 
   ngOnInit(): void {
     //fetch customers on init
     this.customersService.getAllCustomers().subscribe({
       next: () => console.log('Customers fetched successfully'),
-      error: error => console.error('Error fetching customers', error)
+      error: error => {
+        console.error('Error fetching customers', error);
+        this.errorMessage.set(error.message);
+      },
+      complete: () => {this.isFetching.set(false)},
     });
   }
 

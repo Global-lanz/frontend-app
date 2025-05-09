@@ -33,4 +33,22 @@ export class CustomersService {
     );
   }
 
+  newCustomer(customerData: Customer) {
+    console.log(customerData);
+    return this.http.post<{customerDate: Customer}>(`${this.baseUrl}/customer`, {
+      name: customerData.name,
+      taxIdentificationNumber: customerData.taxIdentificationNumber,
+      taxIdentificationType: customerData.taxIdentificationType,
+      taxRegime: customerData.taxRegime,
+      annualRevenue: customerData.annualRevenue,
+      country: customerData.country,
+      address: customerData.address,
+      postalCode: customerData.postalCode,
+      businessSector: customerData.businessSector,
+      establishmentDate: customerData.establishmentDate,
+      notes: customerData.notes,
+      currencyId: null, //until Currency API is implemented
+    })
+  }
+
 }

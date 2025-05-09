@@ -1,52 +1,71 @@
 @if (isAddingCustomer()) {
     <app-new-customer (cancel)="onCancelAddCustomer()" (add)="onAddCustomer($event)"/>
-}
+} @else {
+    <header>
+        <menu>
+            <div class="field is-horizontal">
+                <div class="field-body">
+                    <button class="button is-primary" (click)="onStartAddCustomer()" (mouseenter)="hoverCreate = true" (mouseleave)="hoverCreate = false">
+                        <span class="icon">
+                            <i class="fa-solid fa-plus" [class.fa-beat]="hoverCreate" ></i>
+                        </span>
+                        <span>Create Customer</span>
+                    </button>
+                </div>
+                <div class="field-label is-normal">
+                    <label class="label" for="SortOptions">Sort by</label>
+                </div>
+                <div class="field-body has-addons">
+                    <p class="select">
+                        <select id="SortOptions">
+                            <option routerLink="./" [queryParams]="{sortBy: 'name'}" queryParamsHandling="merge">Name</option>
+                        </select>
+                    </p>
+                    <p class="control">
+                    <button class="button" routerLink="./" [queryParams]="{sort: 'asc'}" queryParamsHandling="merge">
+                        <span class="icon is-small" >
+                            <i class="fa-solid fa-arrow-up-wide-short"></i>
+                        </span>
+                    </button>
+                    </p>
+                    <p class="control">
+                    <button class="button" routerLink="./" [queryParams]="{sort: 'desc'}" queryParamsHandling="merge">
+                        <span class="icon is-small">
+                            <i class="fa-solid fa-arrow-down-wide-short"></i>
+                        </span>
+                    </button>
+                    </p>
+                </div>
+            </div>
+        </menu>
+    </header>
 
-<header>
-     <menu>
-        <div class="field is-horizontal">
-            <div class="field-body">
-                <button class="button is-primary" (click)="onStartAddCustomer()" (mouseenter)="hoverCreate = true" (mouseleave)="hoverCreate = false">
-                    <span class="icon">
-                        <i class="fa-solid fa-plus" [class.fa-beat]="hoverCreate" ></i>
-                    </span>
-                    <span>Create Customer</span>
-                </button>
-            </div>
-            <div class="field-label is-normal">
-                <label class="label" for="SortOptions">Sort by</label>
-            </div>
-            <div class="field-body has-addons">
-                <p class="select">
-                    <select id="SortOptions">
-                        <option routerLink="./" [queryParams]="{sortBy: 'name'}" queryParamsHandling="merge">Name</option>
-                    </select>
-                </p>
-                <p class="control">
-                  <button class="button" routerLink="./" [queryParams]="{sort: 'asc'}" queryParamsHandling="merge">
-                    <span class="icon is-small" >
-                        <i class="fa-solid fa-arrow-up-wide-short"></i>
-                    </span>
-                  </button>
-                </p>
-                <p class="control">
-                  <button class="button" routerLink="./" [queryParams]="{sort: 'desc'}" queryParamsHandling="merge">
-                    <span class="icon is-small">
-                        <i class="fa-solid fa-arrow-down-wide-short"></i>
-                    </span>
-                  </button>
-                </p>
-            </div>
+    @if(isFetching()) {
+        <span class="icon-text">
+            <span class="icon">
+            <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+            </span>
+            <span>Loading...</span>
+        </span>
+        <!-- <div class="loading">
+            <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+            <span>Loading...</span>
+        </div> -->
+    } @else if (errorMessage()) {
+        <div class="error">
+            <p>Error: {{ errorMessage() }}</p>
         </div>
-     </menu>
-</header>
-
-
-<div>
-    <ul id="customers">
-        @for (customer of customers() | sort:sortBy():sort(); track customer.id) {
-                <app-customer [customer]="customer" />
-        }
-    </ul>
-</div>
+    } @else if (customers().length === 0) {
+        <div class="no-customers">
+            <p>No customers found.</p>
+        </div>
+    }
+    <div>
+        <ul id="customers">
+            @for (customer of customers() | sort:sortBy():sort(); track customer.customerId) {
+                    <app-customer [customer]="customer" />
+            }
+        </ul>
+    </div>
+}
 
