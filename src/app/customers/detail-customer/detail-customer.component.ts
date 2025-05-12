@@ -36,13 +36,14 @@ export class DetailCustomerComponent {
   }
   
   onEditCustomer(customerData: Customer) {
-    this.customersService.customers().map(u => u.customerId === this.customerId() ? {...u,...customerData} : u);
+    // this.customersService.customers().map(u => u.customerId === this.customerId() ? {...u,...customerData} : u);
+    this.customersService.updateCustomer(this.selectedCustomer().customerId, customerData).subscribe();
     this.isEditingCustomer.set(false);
   }
 
   onDeleteCustomer() {
     // this.delete.emit(this.selectedCustomer().customerId!);
-    this.customersService.deleteCustomer(this.selectedCustomer().customerId!).subscribe();
+    this.customersService.deleteCustomer(this.selectedCustomer().customerId).subscribe();
     //back to overview
     //todo success delete message
     //reload customers

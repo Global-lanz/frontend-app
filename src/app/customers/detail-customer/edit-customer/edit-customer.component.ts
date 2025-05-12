@@ -1,6 +1,7 @@
-import { Component, output, input, Signal } from '@angular/core';
+import { Component, output, input, Signal, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { type Customer } from '../../customer.model';
+import { CurrencyService } from '../../../currency.service';
 
 @Component({
   selector: 'app-edit-customer',
@@ -9,6 +10,7 @@ import { type Customer } from '../../customer.model';
   styleUrl: './edit-customer.component.css'
 })
 export class EditCustomerComponent {
+    currencyService = inject(CurrencyService);
     selectedCustomer = input.required<Customer>();
     cancel = output<void>();
     edit = output<Customer>(); 

@@ -70,6 +70,36 @@ export class CustomersService {
     }))
   }
 
+  updateCustomer(id:string, customerData: Customer) {
+    this.errorMessage.set(null);
+    console.log(customerData);
+    return this.http.put<{customerDate: Customer}>(`${this.baseUrl}/customer/ ${id}`, {
+      name: customerData.name,
+      taxIdentificationNumber: customerData.taxIdentificationNumber,
+      taxIdentificationType: customerData.taxIdentificationType,
+      taxRegime: customerData.taxRegime,
+      annualRevenue: customerData.annualRevenue,
+      country: customerData.country,
+      address: customerData.address,
+      postalCode: customerData.postalCode,
+      businessSector: customerData.businessSector,
+      establishmentDate: customerData.establishmentDate,
+      notes: customerData.notes,
+      currencyId: customerData.currencyId, 
+    }).pipe(
+      tap({
+        next: () => {
+        console.log('Customer edited successfully');
+        //reload customers, maybe add optimistic update
+        this.getAllCustomers().subscribe();
+        },
+        error: error => {
+            console.error('Error editing customer', error);
+            this.errorMessage.set(error.message);
+        },
+    }))
+  }
+
   deleteCustomer(id: string) {
     this.errorMessage.set(null);
     // this.customers.filter((customer) => customer.customerId !== id)
@@ -86,6 +116,7 @@ export class CustomersService {
         },
     }))
   }
+
 
 }
 
