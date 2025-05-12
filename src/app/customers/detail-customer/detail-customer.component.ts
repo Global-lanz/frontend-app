@@ -3,13 +3,14 @@ import { CustomersService } from '../customers.service';
 import { RouterLink } from '@angular/router';
 import { EditCustomerComponent } from './edit-customer/edit-customer.component';
 
-import { Customer } from '../customer/customer.model';
+import { Customer } from '../customer.model';
+import { CurrencyDisplayPipe } from '../../currency.pipe';
 
 
 
 @Component({
   selector: 'app-detail-customer',
-  imports: [RouterLink, EditCustomerComponent],
+  imports: [RouterLink, EditCustomerComponent, CurrencyDisplayPipe],
   templateUrl: './detail-customer.component.html',
   styleUrl: './detail-customer.component.css'
 })
@@ -40,6 +41,12 @@ export class DetailCustomerComponent {
   }
 
   onDeleteCustomer() {
-    this.delete.emit(this.selectedCustomer().customerId!);
+    // this.delete.emit(this.selectedCustomer().customerId!);
+    this.customersService.deleteCustomer(this.selectedCustomer().customerId!).subscribe();
+    //back to overview
+    //todo success delete message
+    //reload customers
+    this.customersService.getAllCustomers().subscribe();
+    this.goBack();
   }
 }

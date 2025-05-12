@@ -60,8 +60,11 @@
                     <div class="field has-addons">
                         <span class="select">
                             <select id="currency" name="currency" ngModel>
-                                <option>BRL</option>
-                                <option>EUR</option>
+                                @for (currency of currencyService.currencies(); track currency.currencyId) {
+                                    <option [value]="currency.currencyId">
+                                        {{ currency.code}}
+                                    </option>
+                                }
                             </select>
                         </span>
                         <div class="control">

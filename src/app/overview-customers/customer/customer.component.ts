@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 
-import { type Customer } from './customer.model';
+import { type Customer } from '../../customers/customer.model';
 import { RouterLink } from '@angular/router';
 
 @Component({

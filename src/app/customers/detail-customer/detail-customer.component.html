@@ -20,7 +20,7 @@
     <p>{{ selectedCustomer().taxIdentificationNumber }}</p>
     <p>{{ selectedCustomer().taxIdentificationType }}</p>
     <p>{{ selectedCustomer().taxRegime }}</p>
-    <p>{{ selectedCustomer().annualRevenue }} {{ selectedCustomer().currencyId }}</p>
+    <p>{{ selectedCustomer().annualRevenue }} {{ selectedCustomer().currencyId | currencyDisplay:'symbol' }}</p>
     <p>{{ selectedCustomer().country }}</p>
     <p>{{ selectedCustomer().address }}</p>
     <p>{{ selectedCustomer().postalCode }}</p>

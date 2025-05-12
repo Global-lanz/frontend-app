@@ -1,6 +1,6 @@
 import { Component, output, input, Signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { type Customer } from '../../customer/customer.model';
+import { type Customer } from '../../customer.model';
 
 @Component({
   selector: 'app-edit-customer',

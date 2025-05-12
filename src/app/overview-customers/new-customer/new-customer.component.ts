@@ -1,6 +1,7 @@
-import { Component,output, input } from '@angular/core';
+import { Component,output, input, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { type Customer } from '../customer/customer.model';
+import { type Customer } from '../../customers/customer.model';
+import { CurrencyService } from '../../currency.service';
 
 @Component({
   selector: 'app-new-customer',
@@ -11,6 +12,8 @@ import { type Customer } from '../customer/customer.model';
 export class NewCustomerComponent {
   cancel = output<void>();
   add = output<Customer>(); 
+
+  currencyService = inject(CurrencyService);
 
   onCancel() {
     this.cancel.emit();

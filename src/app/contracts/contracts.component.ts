@@ -8,7 +8,7 @@ import { CustomersService } from '../customers/customers.service';
 import { type Contract} from './contract.model';
 import { SortPipe } from '../sort.pipe';
 import { NewContractComponent } from './new-contract/new-contract.component';
-import { Customer } from '../customers/customer/customer.model';
+import { Customer } from '../customers/customer.model';
 
 
 @Component({

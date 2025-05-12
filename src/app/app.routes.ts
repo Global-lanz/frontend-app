@@ -5,6 +5,7 @@ import { DetailCustomerComponent } from './customers/detail-customer/detail-cust
 import { AuthComponent } from './auth/auth.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ActivationComponent } from './auth/activation/activation.component';
+import { OverviewCustomersComponent } from './overview-customers/overview-customers.component';
 
  
 export const routes: Routes = [
@@ -16,13 +17,19 @@ export const routes: Routes = [
         title: 'Manage Customers',
         component: CustomersComponent,
         canActivate: [AuthGuard],
-    },
-    {
-        path: 'customers/customer/:customerId',
-        title: 'Customer Details',
-        component: DetailCustomerComponent,
-        canActivate: [AuthGuard],
+        children: [
+            {
+                path: '',
+                component: OverviewCustomersComponent,
+            },
+            {
+                path: 'customer/:customerId',
+                title: 'Customer Details',
+                component: DetailCustomerComponent,
+                canActivate: [AuthGuard],
 
+            },
+        ]
     },
     {
         path: 'contracts',
