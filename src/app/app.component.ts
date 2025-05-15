@@ -4,10 +4,11 @@ import { NavComponent } from '../nav/nav.component';
 import { HeaderComponent } from "../header/header.component";
 import { ReactiveFormsModule } from '@angular/forms';
 import { CurrencyService } from './currency.service';
+import { MessageComponent } from './message/message.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavComponent, HeaderComponent, ReactiveFormsModule],
+  imports: [RouterOutlet, NavComponent, HeaderComponent, MessageComponent, ReactiveFormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

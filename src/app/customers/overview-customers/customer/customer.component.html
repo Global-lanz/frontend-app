@@ -1,5 +1,5 @@
-<div class="box my-1">
-    <a [routerLink]="['./customer', customer().customerId]" class="subtitle is-6" >{{ customer().name }}</a>
+<div class="customer box my-1" [routerLink]="['./customer', customer().customerId]">
+    <p  class="subtitle is-6" >{{ customer().name }}</p>
     <!-- @if (showDetails){
         <p>{{ customer().name }}</p>
         <p>{{ customer().id }}</p>

@@ -8,6 +8,8 @@
 }
 /* 3-spaltiges Layout für breitere Viewports */
 
+
+
 @media (min-width: 5em) {
 	.grid-container {
 		display: grid;
@@ -17,8 +19,10 @@
 		"footer footer";
 		grid-template-columns: 1fr 4fr;
 		grid-template-rows: auto 1fr auto;
+		height: 100vh;
 	}
 }
+
 
 /* borders + padding*/
 header,
@@ -47,6 +51,21 @@ nav {
 main {
 	background: #e9e9e9;
 	grid-area: main;
+	display: flex;
 	overflow-y: auto;
+	flex-direction: column;
+  	height: 100%;
+  	min-height: 0; /* Prevents overflow issues */
 }
+
+
+/* .toast-notifications-container {
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  z-index: 999;
+  min-width: 300px;
+  max-width: 90vw;
+
+} */
 

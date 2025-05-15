@@ -5,7 +5,7 @@ import { DetailCustomerComponent } from './customers/detail-customer/detail-cust
 import { AuthComponent } from './auth/auth.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ActivationComponent } from './auth/activation/activation.component';
-import { OverviewCustomersComponent } from './overview-customers/overview-customers.component';
+import { OverviewCustomersComponent } from './customers/overview-customers/overview-customers.component';
 
  
 export const routes: Routes = [

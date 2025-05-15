@@ -2,15 +2,16 @@ import { Component, inject, input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { CustomerComponent } from './customer/customer.component';
-import { CustomersService } from '../customers/customers.service';
+import { CustomersService } from '../customers.service';
 import { NewCustomerComponent } from './new-customer/new-customer.component';
-import { SortPipe } from '../sort.pipe';
+import { SortPipe } from '../../sort.pipe';
 
-import { Customer } from '../customers/customer.model';
+import { Customer } from '../customer.model';
+import { MessageComponent } from '../../message/message.component';
 
 @Component({
   selector: 'app-customers',
-  imports: [CustomerComponent, NewCustomerComponent, SortPipe, RouterLink],
+  imports: [CustomerComponent, NewCustomerComponent, SortPipe, RouterLink, MessageComponent],
   templateUrl: './overview-customers.component.html',
   styleUrl: './overview-customers.component.css'
 })
@@ -24,8 +25,8 @@ export class OverviewCustomersComponent {
     private customersService = inject(CustomersService);
     customers = this.customersService.customers;
 
+    //necessary?
     isLoading = this.customersService.isLoading;
-    errorMessage = this.customersService.errorMessage;
     
 
     onStartAddCustomer() {
@@ -36,7 +37,7 @@ export class OverviewCustomersComponent {
         this.isAddingCustomer.set(false);
     }
 
-    onAddCustomer(customerData: Customer) {
+    onAddCustomer(customerData: Partial<Customer>) {
         const subscription = this.customersService.newCustomer(customerData).subscribe();
         this.isAddingCustomer.set(false);
     }

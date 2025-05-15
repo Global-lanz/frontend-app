@@ -1,7 +1,7 @@
 import { Component,output, input, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { type Customer } from '../../customers/customer.model';
-import { CurrencyService } from '../../currency.service';
+import { type Customer } from '../../customer.model';
+import { CurrencyService } from '../../../currency.service';
 
 @Component({
   selector: 'app-new-customer',
@@ -11,7 +11,7 @@ import { CurrencyService } from '../../currency.service';
 })
 export class NewCustomerComponent {
   cancel = output<void>();
-  add = output<Customer>(); 
+  add = output <Partial<Customer>>(); 
 
   currencyService = inject(CurrencyService);
 
@@ -24,17 +24,16 @@ export class NewCustomerComponent {
     }
     // console.log(formData);
     this.add.emit({
-      customerId: 'temp',
       name: formData.form.value.name || '',
-      taxIdentificationNumber: formData?.form.value.tax_identification_number || '',
-      taxIdentificationType: formData?.form.value.tax_identification_type || '',
-      taxRegime: formData?.form.value.tax_regime || '',
-      annualRevenue: Number(formData?.form.value.annual_revenue) || 0,
+      taxIdentificationNumber: formData?.form.value.taxIdentificationNumber || '',
+      taxIdentificationType: formData?.form.value.taxIdentificationType || '',
+      taxRegime: formData?.form.value.taxRegime || '',
+      annualRevenue: Number(formData?.form.value.annualRevenue) || 0,
       country: formData?.form.value.country || '',
       address: formData?.form.value.address || '',
-      postalCode: formData?.form.value.postal_code || '',
-      businessSector: formData?.form.value.business_sector || '',
-      establishmentDate: formData?.form.value.establishment_date || '',
+      postalCode: formData?.form.value.postalCode || '',
+      businessSector: formData?.form.value.businessSector || '',
+      establishmentDate: formData?.form.value.establishmentDate || '',
       notes: formData?.form.value.notes || '',
       currencyId: formData?.form.value.currency || '',
     })

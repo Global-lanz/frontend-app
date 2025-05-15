@@ -1,0 +1,16 @@
+.toast-notifications {
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  z-index: 999;
+  min-width: 300px;
+  max-width: 90vw;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column; /* Newest on top */
+  gap: 0.25rem; /* Consistent gap */
+}
+
+.toast-notifications .notification {
+  margin: 0;      /* Remove default margin */
+}

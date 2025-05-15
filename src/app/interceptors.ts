@@ -17,6 +17,7 @@ export function loggingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerF
     }));
 }
 
+//error handling
 export function errorInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
     return next(req).pipe(catchError((error: HttpErrorResponse)=> {
         console.error(error.status,error.message);

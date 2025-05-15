@@ -5,15 +5,17 @@ import { EditCustomerComponent } from './edit-customer/edit-customer.component';
 
 import { Customer } from '../customer.model';
 import { CurrencyDisplayPipe } from '../../currency.pipe';
+import { MessageComponent } from '../../message/message.component';
 
 
 
 @Component({
   selector: 'app-detail-customer',
-  imports: [RouterLink, EditCustomerComponent, CurrencyDisplayPipe],
+  imports: [RouterLink, EditCustomerComponent, CurrencyDisplayPipe, MessageComponent],
   templateUrl: './detail-customer.component.html',
   styleUrl: './detail-customer.component.css'
 })
+
 export class DetailCustomerComponent {
   private customersService = inject(CustomersService);
   customerId = input.required<string>();
