@@ -22,7 +22,7 @@ export class ContractsComponent {
   private customersService = inject(CustomersService);
 
   isAddingContract = signal<Boolean>(false);
-  hoverCreate = false;
+  hoverCreate = signal(false);
 
   //query param
   customer = input<string|undefined>();

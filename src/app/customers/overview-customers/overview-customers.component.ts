@@ -11,7 +11,7 @@ import { MessageComponent } from '../../message/message.component';
 
 @Component({
   selector: 'app-customers',
-  imports: [CustomerComponent, NewCustomerComponent, SortPipe, RouterLink, MessageComponent],
+  imports: [CustomerComponent, NewCustomerComponent, SortPipe, RouterLink],
   templateUrl: './overview-customers.component.html',
   styleUrl: './overview-customers.component.css'
 })

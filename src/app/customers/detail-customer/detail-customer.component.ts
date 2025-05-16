@@ -4,24 +4,25 @@ import { RouterLink } from '@angular/router';
 import { EditCustomerComponent } from './edit-customer/edit-customer.component';
 
 import { Customer } from '../customer.model';
-import { CurrencyDisplayPipe } from '../../currency.pipe';
-import { MessageComponent } from '../../message/message.component';
+import { CurrencyService } from '../../currency.service';
 
 
 
 @Component({
   selector: 'app-detail-customer',
-  imports: [RouterLink, EditCustomerComponent, CurrencyDisplayPipe, MessageComponent],
+  imports: [RouterLink, EditCustomerComponent],
   templateUrl: './detail-customer.component.html',
   styleUrl: './detail-customer.component.css'
 })
 
 export class DetailCustomerComponent {
   private customersService = inject(CustomersService);
+  private currencyService = inject(CurrencyService);
   customerId = input.required<string>();
   delete = output<string>();
 
   selectedCustomer = computed(() => this.customersService.customers().find(u => u.customerId === this.customerId()) as Customer);
+  selectedCustomerCurrency = computed(() => this.currencyService.currencies().find(u => u.currencyId === this.selectedCustomer().currencyId));
 
   isEditingCustomer = signal<Boolean>(false)
 

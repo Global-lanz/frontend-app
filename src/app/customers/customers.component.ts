@@ -16,7 +16,8 @@ export class CustomersComponent {
   ngOnInit(): void {
     //fetch customers on init
     const subscription = this.customersService.getAllCustomers().subscribe();
-    //unsubscribe when component is destroyed; not really needed for http calls
+    //unsubscribe when component is destroyed; not really needed for http calls, todo explore method without subscribe here
+    
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
     });

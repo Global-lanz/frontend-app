@@ -28,7 +28,7 @@ export class AuthService {
         ).pipe(
             tap(response => {
                 this.handleAuthentication(email,response.token);
-                console.log(response.token);
+                //console.log(response.token);
             })
         );
     }

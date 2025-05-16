@@ -3,7 +3,7 @@ import { CustomersComponent } from './customers/customers.component';
 import { ContractsComponent } from './contracts/contracts.component';
 import { DetailCustomerComponent } from './customers/detail-customer/detail-customer.component';
 import { AuthComponent } from './auth/auth.component';
-import { AuthGuard } from './auth/auth.guard';
+import { authGuard } from './auth/auth.guard';
 import { ActivationComponent } from './auth/activation/activation.component';
 import { OverviewCustomersComponent } from './customers/overview-customers/overview-customers.component';
 
@@ -16,7 +16,7 @@ export const routes: Routes = [
         path: 'customers',
         title: 'Manage Customers',
         component: CustomersComponent,
-        canActivate: [AuthGuard],
+        canActivate: [authGuard],
         children: [
             {
                 path: '',
@@ -26,7 +26,7 @@ export const routes: Routes = [
                 path: 'customer/:customerId',
                 title: 'Customer Details',
                 component: DetailCustomerComponent,
-                canActivate: [AuthGuard],
+                canActivate: [authGuard],
 
             },
         ]
@@ -35,7 +35,7 @@ export const routes: Routes = [
         path: 'contracts',
         title: 'Manage Contracts',
         component: ContractsComponent,
-        canActivate: [AuthGuard],
+        canActivate: [authGuard],
     },
     {   
         path: 'authentication',

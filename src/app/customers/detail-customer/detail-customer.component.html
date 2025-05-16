@@ -1,56 +1,70 @@
 @if (isEditingCustomer()) {
-    <app-edit-customer [selectedCustomer]="selectedCustomer()" (cancel)="onCancelEditCustomer()" (edit)="onEditCustomer($event)" (delete)="onDeleteCustomer()"/>
-} @else{
+<app-edit-customer [selectedCustomer]="selectedCustomer()" (cancel)="onCancelEditCustomer()"
+    (edit)="onEditCustomer($event)" (delete)="onDeleteCustomer()" />
+} @else {
 
-<header>
-    <menu>
-        <button class="button is-primary" id="goBack" (click)="goBack()" >
-            <span class="icon">
-                <i class="fa-solid fa-backward-step"></i>
-            </span>
-            <span>Back</span>
-        </button>
-    </menu>
-</header>
-
-
-
-<div class="box">
-    <h2 class="title is-4"><p>{{ selectedCustomer().name }}</p></h2>
-    <p>{{ selectedCustomer().customerId }}</p>
-    <p>{{ selectedCustomer().taxIdentificationNumber }}</p>
-    <p>{{ selectedCustomer().taxIdentificationType }}</p>
-    <p>{{ selectedCustomer().taxRegime }}</p>
-    <p>{{ selectedCustomer().annualRevenue }} {{ selectedCustomer().currencyId | currencyDisplay:'symbol' }}</p>
-    <p>{{ selectedCustomer().country }}</p>
-    <p>{{ selectedCustomer().address }}</p>
-    <p>{{ selectedCustomer().postalCode }}</p>
-    <p>{{ selectedCustomer().establishmentDate }}</p>
-    <p>{{ selectedCustomer().notes }}</p>
-    <p>Contacts: here will be cards with Contacts and a button to add new contact</p>
-
-    <div class="field is-grouped is-grouped-right">
-        <p class="control">
-            <button class="button is-primary" routerLink="/contracts" [queryParams]="{customer: selectedCustomer()!.customerId}">
-                Contracts
-            </button>
-        </p>
-        <p class="control">
-            <button class="button is-light" (click)="onStartEditCustomer()">
+<nav class="navbar sub-nav">
+    <div class="navbar-start">
+        <div class="navbar-item">
+            <button class="button is-primary" id="goBack" (click)="goBack()">
                 <span class="icon">
-                    <i class="fa-solid fa-pen-to-square"></i>
+                    <i class="fa-solid fa-backward-step"></i>
                 </span>
-                <span>Edit</span>
+                <span>Back</span>
             </button>
-        </p>
-        <p class="control">
-            <button class="button is-light" (click)="onDeleteCustomer()">
-                <span class="icon">
-                    <i class="fa-solid fa-trash"></i>
-                </span>
-                <span>Delete</span>
-            </button>
-        </p>
+        </div>
+    </div>
+</nav>
+
+
+<div class="content-area">
+    <div class="box">
+        <h2 class="title is-4">
+            <p>{{ selectedCustomer().name }}</p>
+        </h2>
+        <p>{{ selectedCustomer().customerId }}</p>
+        <p>{{ selectedCustomer().taxIdentificationNumber }}</p>
+        <p>{{ selectedCustomer().taxIdentificationType }}</p>
+        <p>{{ selectedCustomer().taxRegime }}</p>
+        <p>{{ selectedCustomer().annualRevenue }} {{ selectedCustomerCurrency()?.symbol }}</p>
+        <!-- <p>{{ selectedCustomer().annualRevenue }} {{ selectedCustomer().currencyId | currencyDisplay:'symbol' }}</p> -->
+        <p>{{ selectedCustomer().country }}</p>
+        <p>{{ selectedCustomer().address }}</p>
+        <p>{{ selectedCustomer().postalCode }}</p>
+        <p>{{ selectedCustomer().establishmentDate }}</p>
+        <p>{{ selectedCustomer().notes }}</p>
+        <p>Contacts: here will be cards with Contacts and a button to add new contact</p>
+
+        <div class="field is-grouped is-grouped-right">
+            <p class="control">
+                <button class="button is-primary" routerLink="/contracts"
+                    [queryParams]="{customer: selectedCustomer()!.customerId}">
+                    Contracts
+                </button>
+            </p>
+            <p class="control">
+                <button class="button is-light" (click)="onStartEditCustomer()">
+                    <span class="icon">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </span>
+                    <span>Edit</span>
+                </button>
+            </p>
+            <p class="control">
+                <button class="button is-light" (click)="onDeleteCustomer()">
+                    <span class="icon">
+                        <i class="fa-solid fa-trash"></i>
+                    </span>
+                    <span>Delete</span>
+                </button>
+            </p>
+        </div>
     </div>
 </div>
+
 }
+
+
+
+
+        

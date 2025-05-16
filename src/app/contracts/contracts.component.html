@@ -7,9 +7,9 @@
      <menu>
         <div class="field is-horizontal">
             <div class="field-body">
-                <button class="button is-primary" [disabled]="!customer()" (click)="onStartAddContract()" (mouseenter)="hoverCreate = true" (mouseleave)="hoverCreate = false">
+                <button class="button is-primary" [disabled]="!customer()" (click)="onStartAddContract()" (mouseenter)="hoverCreate.set(true)" (mouseleave)="hoverCreate.set(false)">
                     <span class="icon">
-                        <i class="fa-solid fa-plus" [class.fa-beat]="hoverCreate"></i>
+                        <i class="fa-solid fa-plus" [class.fa-beat]="hoverCreate()"></i>
                     </span>
                     <span>Create Contract</span>
                 </button>

@@ -27,7 +27,6 @@
 /* borders + padding*/
 header,
 nav,
-main,
 article,
 section,
 aside,
@@ -58,14 +57,4 @@ main {
   	min-height: 0; /* Prevents overflow issues */
 }
 
-
-/* .toast-notifications-container {
-  position: fixed;
-  right: 2rem;
-  bottom: 2rem;
-  z-index: 999;
-  min-width: 300px;
-  max-width: 90vw;
-
-} */
 
