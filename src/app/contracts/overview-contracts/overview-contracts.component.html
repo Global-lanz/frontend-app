@@ -1,0 +1,79 @@
+@if (isAddingContract()) {
+    <app-new-contract [customer]="selectedCustomer()" [customerCurrency]="selectedCustomerCurrency()"  (cancel)="onCancelAddCustomer()" (add)="onAddCustomer($event)" />
+} @else {
+
+    <nav class="navbar sub-nav">
+            <div class="navbar-start">
+                <div class="navbar-item">
+                    <button class="button is-primary" (click)="onStartAddContract()"
+                        (mouseenter)="hoverCreate.set(true)" (mouseleave)="hoverCreate.set(false)" [disabled]="!customerselected()">
+                        <span class="icon">
+                            <i class="fa-solid fa-plus" [class.fa-beat]="hoverCreate()"></i>
+                        </span>
+                        <span>Add Contract</span>
+                    </button>
+                </div>
+                <div class="navbar-item">
+                    <label class="label" for="SortOptions">Customer</label>
+                    <div class="select">
+                        <select id="CustomerSelect">
+                            <option routerLink="./" [queryParams]="{customerId: undefined}">Show All</option>
+                            @for (customer of customers(); track customer.customerId){
+                                <option routerLink="./" [queryParams]="{customerId: customer.customerId}">{{customer.name}}</option>
+                            }
+                        </select>
+                    </div>
+                        <label class="label" for="SortOptions">SortBy</label>
+                    <div class="field-body has-addons">
+                        <p class="select">
+                            <select id="SortOptions">
+                                <option routerLink="./" [queryParams]="{sortBy: 'status'}" queryParamsHandling="merge">Status</option>
+                                <option routerLink="./" [queryParams]="{sortBy: 'type'}" queryParamsHandling="merge">Type</option>
+                            </select>
+                        </p>
+                        <p class="control">
+                            <button class="button" routerLink="./" [queryParams]="{sort: 'asc'}"
+                                queryParamsHandling="merge">
+                                <span class="icon is-small">
+                                    <i class="fa-solid fa-arrow-up-wide-short"></i>
+                                </span>
+                            </button>
+                        </p>
+                        <p class="control">
+                            <button class="button" routerLink="./" [queryParams]="{sort: 'desc'}"
+                                queryParamsHandling="merge">
+                                <span class="icon is-small">
+                                    <i class="fa-solid fa-arrow-down-wide-short"></i>
+                                </span>
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+    </nav>
+        
+
+
+    <div class="content-area">
+        @if(isLoading()) {
+        <span class="icon-text">
+            <span class="icon">
+                <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+            </span>
+            <span>Loading...</span>
+        </span>
+        } @else if (contracts().length === 0) {
+        <div class="no-contracts">
+            <p>No contracts found.</p>
+        </div>
+        }
+        <div>
+            <ul id="contracts">
+                @for (contract of sortedFilteredContracts(); track contract.contractId) {
+                    <app-contract [contract]="contract"></app-contract>
+                }
+            </ul>
+        </div>
+    </div>
+
+}

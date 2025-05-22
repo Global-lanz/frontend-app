@@ -2,9 +2,10 @@ import { input, inject, Component, computed, signal, output } from '@angular/cor
 import { CustomersService } from '../customers.service';
 import { RouterLink } from '@angular/router';
 import { EditCustomerComponent } from './edit-customer/edit-customer.component';
-
-import { Customer } from '../customer.model';
 import { CurrencyService } from '../../currency.service';
+
+import { type Customer } from '../customer.model';
+import { type Currency } from '../../currency.model';
 
 
 
@@ -22,7 +23,7 @@ export class DetailCustomerComponent {
   delete = output<string>();
 
   selectedCustomer = computed(() => this.customersService.customers().find(u => u.customerId === this.customerId()) as Customer);
-  selectedCustomerCurrency = computed(() => this.currencyService.currencies().find(u => u.currencyId === this.selectedCustomer().currencyId));
+  selectedCustomerCurrency = computed< Currency | undefined >(() => this.currencyService.currencies().find(u => u.currencyId === this.selectedCustomer().currencyId) as Currency);
 
   isEditingCustomer = signal<Boolean>(false)
 
@@ -39,18 +40,15 @@ export class DetailCustomerComponent {
   }
   
   onEditCustomer(customerData: Customer) {
-    // this.customersService.customers().map(u => u.customerId === this.customerId() ? {...u,...customerData} : u);
-    this.customersService.updateCustomer(this.selectedCustomer().customerId, customerData).subscribe();
     this.isEditingCustomer.set(false);
+    this.customersService.editCustomer(this.selectedCustomer().customerId, customerData);
   }
 
   onDeleteCustomer() {
-    // this.delete.emit(this.selectedCustomer().customerId!);
-    this.customersService.deleteCustomer(this.selectedCustomer().customerId).subscribe();
-    //back to overview
-    //todo success delete message
+    this.customersService.removeCustomer(this.selectedCustomer().customerId);
+    //back to overview?
     //reload customers
-    this.customersService.getAllCustomers().subscribe();
+    this.customersService.getAllCustomers();
     this.goBack();
   }
 }

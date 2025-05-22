@@ -2,6 +2,8 @@ import { Component, NgModule, output, input, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 
 import { Contract } from '../contract.model';
+import { Customer } from '../../customers/customer.model';
+import { Currency } from '../../currency.model';
 
 
 
@@ -13,37 +15,32 @@ import { Contract } from '../contract.model';
 })
 export class NewContractComponent {
   cancel = output<void>();
-  add = output<Contract>();
+  add = output<Partial <Contract>>();
   
-  customer = input<string >();
-  customerName = input<string|undefined>();
-  customerCurrency = input<string>();
-
-  ngDefaultStatus = "Quotation"
+  customer = input.required<Customer>();
+  customerCurrency = input.required<Currency>()
 
   onCancel() {
     this.cancel.emit();
   }
 
-  // onSubmit(formData: NgForm) {
-  //   if (formData.form.invalid) {
-  //     return;
-  //   }
-  //   // console.log(formData);
-  //   this.add.emit({
-  //     contract_id: new Date().getTime().toString(),
-  //     //company_id: string;
-  //     customer_id: formData?.form.value.customer.id,
-  //     total_amount: formData?.form.value.;
-  //     contract_type: string;
-  //     frequency: string;
-  //     payment_day: number;
-  //     start_date: string;
-  //     end_date: string;
-  //     status: string;
-  //     termination_clause: string;
-  //     penalty_fee: number;
-  //   })
-  // }
+  onSubmit(formData: NgForm) {
+    if (formData.form.invalid) {
+      return;
+    }
+    // console.log(formData);
+    this.add.emit({
+      //company_id: string;
+      customerId: this.customer().customerId,
+      totalAmount: formData?.form.value.totalAmount,
+      frequency: formData?.form.value.frequency,
+      paymentDay: formData.form.value.paymentDay,
+      start: formData.form.value.startDate,
+      end: formData.form.value.endDate,
+      terminationClause: formData.form.value.terminationClause,
+      penaltyFee: formData.form.value.penaltyFee,
+      currencyId: this.customerCurrency()?.currencyId,
+    })
+  }
 
 }

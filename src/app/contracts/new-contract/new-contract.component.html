@@ -2,43 +2,43 @@
 <dialog id="newContractDialog" open class="box" style="width: 80%; margin-right: 2%">
     <div class="modal-content">
         <h3 class="title is-3">New Contract</h3>
-        <form #form="ngForm" >
+        <form #form="ngForm" (ngSubmit)="onSubmit(form)">
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" for="name">Customer</label> 
+                    <label class="label" for="customer">Customer</label> 
                 </div>
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input class="input is-static" type="text" value="{{customerName()}}" readonly/>
+                            <input class="input is-static" type="text" value="{{customer().name}}" name="customer" readonly/>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" for="total_amount">Total Amount</label>
+                    <label class="label" for="totalAmount">Total Amount</label>
                 </div>
                 <div class="field-body">
                     <div class="field has-addons">
                         <div class="control">
-                            <a class="button is-static">{{customerCurrency()}}</a>
+                            <a class="button is-static" name="customerCurrency">{{customerCurrency().symbol}}</a>
                         </div>
                         <div class="control">
-                            <input class="input" type="text" id="total_amount" name="total_amount" ngModel/>
+                            <input class="input" type="text" id="totalAmount" name="totalAmount" ngModel/>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="field is-horizontal">
+            <!-- <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" for="contract_type">Contract Type</label> 
+                    <label class="label" for="contractType">Contract Type</label> 
                 </div>
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
                             <div class="select" >
-                                <select id="contract_type" name="contract_type" ngModel>
+                                <select id="contractType" name="contractType" ngModel>
                                     <option>Quote</option>
                                     <option>Contract</option>
                                     <option>Ammendment Quote</option>
@@ -48,7 +48,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="field is-horizontal">
                 <div class="field-label">
                     <!-- Left empty for spacing -->
@@ -70,12 +70,12 @@
                     </div>
                 </div>
                 <div class="field-label is-normal">
-                    <label class="label" for="payment_day">Payment Day</label> 
+                    <label class="label" for="paymentDay">Payment Day</label> 
                 </div>
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input class="input" type="text" id="payment_day" ngModel/>
+                            <input class="input" type="text" id="paymentDay" name="paymentDay" ngModel/>
                         </div>
                     </div>
                 </div>
@@ -85,67 +85,46 @@
                     <!-- Left empty for spacing -->
                     </div>
                 <div class="field-label is-normal">
-                    <label class="label" for="start_date">Start Date</label>
+                    <label class="label" for="startDate">Start Date</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input class="input" type="date" id="start_date" name="start_date" ngModel/>
+                            <input class="input" type="date" id="startDate" name="startDate" ngModel/>
                         </div>
                     </div>
                 </div>
                 <div class="field-label is-normal">
-                    <label class="label" for="end_date">End Date</label>
+                    <label class="label" for="endDate">End Date</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input class="input" type="date" id="end_date" name="end_date" ngModel/>
+                            <input class="input" type="date" id="endDate" name="endDate" ngModel/>
                         </div>
                     </div>
                 </div>
             </div>            
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" for="termination_clause">Termination Clause</label>
+                    <label class="label" for="terminationClause">Termination Clause</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <textarea class="textarea" id="termination_clause" rows="5" name="termination_clause" ngModel></textarea>
+                            <textarea class="textarea" id="terminationClause" rows="5" name="terminationClause" ngModel></textarea>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" for="penalty_fee">Penalty [% of outstanding amount]</label>
+                    <label class="label" for="penaltyFee">Penalty [% of outstanding amount]</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input class="input" type="number" id="penalty_fee" name="penalty_fee" ngModel/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label" for="status">Status</label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <div class="control">
-                            <div class="select" >
-                                <select id="status" name="status" [(ngModel)]='ngDefaultStatus'>
-                                    <option>Quotation</option>
-                                    <option>Awaiting Signature</option>
-                                    <option>Signed</option>
-                                    <option>Running</option>
-                                    <option>Cancelled</option>
-                                    <option>Finished</option>
-                                </select>
-                            </div>
+                            <input class="input" type="number" id="penaltyFee" name="penaltyFee" ngModel/>
                         </div>
                     </div>
                 </div>

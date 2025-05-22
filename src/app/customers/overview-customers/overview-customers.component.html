@@ -18,8 +18,8 @@
                 <div class="field-body has-addons">
                     <p class="select">
                         <select id="SortOptions">
-                            <option routerLink="./" [queryParams]="{sortBy: 'name'}" queryParamsHandling="merge">Name
-                            </option>
+                            <option routerLink="./" [queryParams]="{sortBy: 'name'}" queryParamsHandling="merge">Name</option>
+                            <option routerLink="./" [queryParams]="{sortBy: 'annualRevenue'}" queryParamsHandling="merge">Revenue</option>
                         </select>
                     </p>
                     <p class="control">
@@ -53,10 +53,6 @@
             </span>
             <span>Loading...</span>
         </span>
-        <!-- <div class="loading">
-            <i class="fa-solid fa-spinner fa-spin-pulse"></i>
-            <span>Loading...</span>
-        </div> -->
         } @else if (customers().length === 0) {
         <div class="no-customers">
             <p>No customers found.</p>
@@ -64,7 +60,7 @@
         }
         <div>
             <ul id="customers">
-                @for (customer of customers() | sort:sortBy():sort(); track customer.customerId) {
+                @for (customer of sortedCustomers(); track customer.customerId) {
                 <app-customer [customer]="customer" />
                 }
             </ul>

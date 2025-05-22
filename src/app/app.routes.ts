@@ -6,6 +6,8 @@ import { AuthComponent } from './auth/auth.component';
 import { authGuard } from './auth/auth.guard';
 import { ActivationComponent } from './auth/activation/activation.component';
 import { OverviewCustomersComponent } from './customers/overview-customers/overview-customers.component';
+import { OverviewContractsComponent } from './contracts/overview-contracts/overview-contracts.component';
+import { DetailContractComponent } from './contracts/detail-contract/detail-contract.component';
 
  
 export const routes: Routes = [
@@ -21,6 +23,7 @@ export const routes: Routes = [
             {
                 path: '',
                 component: OverviewCustomersComponent,
+                canActivate: [authGuard],
             },
             {
                 path: 'customer/:customerId',
@@ -36,6 +39,20 @@ export const routes: Routes = [
         title: 'Manage Contracts',
         component: ContractsComponent,
         canActivate: [authGuard],
+        children: [
+            {
+                path: '',
+                component: OverviewContractsComponent,
+                canActivate: [authGuard],
+            },
+            {
+                path: 'contract/:contractId',
+                title: 'Contract Details',
+                component: DetailContractComponent,
+                canActivate: [authGuard],
+            }
+
+        ]
     },
     {   
         path: 'authentication',
@@ -47,7 +64,8 @@ export const routes: Routes = [
         title: 'Account Activation',
         component: ActivationComponent,
     },
-    {   path: '', 
+    {   
+        path: '', //redirect to customers on login
         redirectTo: '/customers', 
         pathMatch: 'full' 
     },

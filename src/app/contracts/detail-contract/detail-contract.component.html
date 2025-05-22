@@ -1,0 +1,72 @@
+@if (isEditingContract()) {
+<!-- <app-edit-customer [selectedCustomer]="selectedCustomer()" (cancel)="onCancelEditCustomer()"
+    (edit)="onEditCustomer($event)" (delete)="onDeleteCustomer()" /> -->
+} @else {
+
+<nav class="navbar sub-nav">
+    <div class="navbar-start">
+        <div class="navbar-item">
+            <button class="button is-primary" id="goBack" (click)="goBack()">
+                <span class="icon">
+                    <i class="fa-solid fa-backward-step"></i>
+                </span>
+                <span>Back</span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+
+<div class="content-area">
+    <div class="box">
+        <h2 class="title is-4">
+            <p>{{ selectedContract().type }} {{ selectedContractCustomer().name }}</p>
+        </h2>
+        <p>{{ selectedContract().contractId }}</p>
+        <p>{{ selectedContractCustomer().name }}</p>
+        <p>{{ selectedContract().totalAmount }} {{ selectedContractCurrency()?.symbol }}</p>
+        <p>{{ selectedContract().frequency }}</p>
+        <p>{{ selectedContract().paymentDay }}</p>
+        <p>{{ selectedContract().start }}</p>
+        <p>{{ selectedContract().end }}</p>
+        <p>{{ selectedContract().terminationClause }}</p>
+        <p>{{ selectedContract().penaltyFee }}</p>
+
+        <div class="level">
+            <div class="level-left">
+                    <div class="level-item">
+                        <p>Transition from Status {{ selectedContract().status }} to </p>
+                    </div>
+                @for (transition of transitions(); track transition.toStatus){
+                <div class="level-item">
+                    <button class="button is-primary" (click)="onTransitionContract(transition.toStatus)">
+                        {{ transition.toStatus }}
+                    </button>
+                </div>
+                }
+            </div>
+            <div class="level-right">
+                <div class="level-item">
+                    <button class="button is-primary">
+                        Invoices
+                    </button>
+                </div>
+                <div class="level-item">
+                    <button class="button is-light" (click)="onStartEditContract()">
+                        <span class="icon">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </span>
+                        <span>Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+}
+
+
+
+
+        
