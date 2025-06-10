@@ -1,0 +1,138 @@
+<div class="modal-background" (click)="onCancel()"></div>
+<dialog id="newCustomerDialog" open class="box" style="width: 80%; margin-right: 2%">
+    <div class="modal-content">
+        <h3 class="title is-3">Edit Contract</h3>
+        <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="customer">Customer</label> 
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input is-static" type="text" value="{{selectedContractCustomer().name}}" name="customer" readonly/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="totalAmount">Total Amount</label>
+                </div>
+                <div class="field-body">
+                    <div class="field has-addons">
+                        <div class="control">
+                            <a class="button is-static" name="customerCurrency">{{selectedContractCurrency()?.symbol}}</a>
+                        </div>
+                        <div class="control">
+                            <input class="input" type="text" id="totalAmount" name="totalAmount" [ngModel]="selectedContract().totalAmount"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label">
+                    <!-- Left empty for spacing -->
+                    </div>
+                <div class="field-label is-normal">
+                    <label class="label" for="frequency">Frequency</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <div class="select" >
+                                <select id="frequency" name="frequency" [ngModel]="selectedContract().frequency">
+                                    <option>Monthly</option>
+                                    <option>Yearly</option>
+                                    <option>Once</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field-label is-normal">
+                    <label class="label" for="paymentDay">Payment Day</label> 
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="text" id="paymentDay" name="paymentDay" [ngModel]="selectedContract().paymentDay"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label">
+                    <!-- Left empty for spacing -->
+                    </div>
+                <div class="field-label is-normal">
+                    <label class="label" for="startDate">Start Date</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="date" id="startDate" name="startDate" [ngModel]="selectedContract().start"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="field-label is-normal">
+                    <label class="label" for="endDate">End Date</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="date" id="endDate" name="endDate" [ngModel]="selectedContract().end"/>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="terminationClause">Termination Clause</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <textarea class="textarea" id="terminationClause" rows="5" name="terminationClause" [ngModel]="selectedContract().terminationClause"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="penaltyFee">Penalty [% of outstanding amount]</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="number" id="penaltyFee" name="penaltyFee" [ngModel]="selectedContract().penaltyFee"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="field is-horizontal">
+                <div class="field-label">
+                <!-- Left empty for spacing -->
+                </div>
+                <div class="field-body">
+                    <div class="field is-grouped is-grouped-right">
+                        <p class="control">
+                            <button class="button is-primary" type="submit">
+                                Save
+                            </button>
+                        </p>
+                        <p class="control">
+                            <button class="button is-light" type="button" (click)="onCancel()">
+                                Cancel
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</dialog>
+

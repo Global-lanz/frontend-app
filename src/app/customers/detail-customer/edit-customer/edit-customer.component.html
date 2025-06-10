@@ -10,7 +10,7 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input class="input" type="text" id="name" name="name" [(ngModel)]="selectedCustomer().name" required />
+                            <input class="input" type="text" id="name" name="name" [ngModel]="selectedCustomer().name" required />
                         </div>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input class="input" type="text" id="taxIdentificationNumber" name="taxIdentificationNumber" [(ngModel)]="selectedCustomer().taxIdentificationNumber"/>
+                            <input class="input" type="text" id="taxIdentificationNumber" name="taxIdentificationNumber" [ngModel]="selectedCustomer().taxIdentificationNumber"/>
                         </div>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input class="input" type="text" id="taxIdentificationType" name="taxIdentificationType" [(ngModel)]="selectedCustomer().taxIdentificationType"/>
+                            <input class="input" type="text" id="taxIdentificationType" name="taxIdentificationType" [ngModel]="selectedCustomer().taxIdentificationType"/>
                         </div>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input class="input" type="text" id="taxRegime" name="taxRegime" [(ngModel)]="selectedCustomer().taxRegime"/>
+                            <input class="input" type="text" id="taxRegime" name="taxRegime" [ngModel]="selectedCustomer().taxRegime"/>
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                 <div class="field-body">
                     <div class="field has-addons">
                         <span class="select">
-                            <select id="currency" name="currency" [(ngModel)]="selectedCustomer().currencyId">
+                            <select id="currency" name="currency" [ngModel]="selectedCustomer().currencyId">
                                 @for (currency of currencyService.currencies(); track currency.currencyId) {
                                     <option [value]="currency.currencyId">
                                         {{ currency.code}}
@@ -67,7 +67,7 @@
                             </select>
                         </span>
                         <div class="control">
-                            <input class="input" type="text" id="annualRevenue" name="annualRevenue" [(ngModel)]="selectedCustomer().annualRevenue"/>
+                            <input class="input" type="text" id="annualRevenue" name="annualRevenue" [ngModel]="selectedCustomer().annualRevenue"/>
                         </div>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                     <div class="field">
                         <div class="control">
                             <div class="select" >
-                                <select id="country" name="country" [(ngModel)]="selectedCustomer().country">
+                                <select id="country" name="country" [ngModel]="selectedCustomer().country">
                                     <option>Brasil</option>
                                     <option>Portugal</option>
                                     <option>Germany</option>
@@ -97,7 +97,7 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input class="input" type="text" id="address" name="address" [(ngModel)]="selectedCustomer().address"/>
+                            <input class="input" type="text" id="address" name="address" [ngModel]="selectedCustomer().address"/>
                         </div>
                     </div>
                 </div>
@@ -109,7 +109,7 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input class="input" type="text" id="postalCode" name="postalCode" [(ngModel)]="selectedCustomer().postalCode"/>
+                            <input class="input" type="text" id="postalCode" name="postalCode" [ngModel]="selectedCustomer().postalCode"/>
                         </div>
                     </div>
                 </div>
@@ -121,7 +121,7 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input class="input" type="text" id="businessSector" name="businessSector" [(ngModel)]="selectedCustomer().businessSector"/>
+                            <input class="input" type="text" id="businessSector" name="businessSector" [ngModel]="selectedCustomer().businessSector"/>
                         </div>
                     </div>
                 </div>
@@ -133,7 +133,7 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input class="input" type="date" id="establishmentDate" name="establishmentDate" [(ngModel)]="selectedCustomer().establishmentDate"/>
+                            <input class="input" type="date" id="establishmentDate" name="establishmentDate" [ngModel]="selectedCustomer().establishmentDate"/>
                         </div>
                     </div>
                 </div>
@@ -145,7 +145,7 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <textarea class="textarea" id="notes" rows="10" name="notes" [(ngModel)]="selectedCustomer().notes"></textarea>
+                            <textarea class="textarea" id="notes" rows="10" name="notes" [ngModel]="selectedCustomer().notes"></textarea>
                         </div>
                     </div>
                 </div>

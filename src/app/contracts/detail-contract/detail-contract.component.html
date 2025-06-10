@@ -1,6 +1,7 @@
 @if (isEditingContract()) {
-<!-- <app-edit-customer [selectedCustomer]="selectedCustomer()" (cancel)="onCancelEditCustomer()"
-    (edit)="onEditCustomer($event)" (delete)="onDeleteCustomer()" /> -->
+<app-edit-contract [selectedContract]="selectedContract()" [selectedContractCustomer]="selectedContractCustomer()"
+    [selectedContractCurrency]="selectedContractCurrency()" (cancel)="onCancelEditContract()"
+    (edit)="onEditContract($event)" (delete)="onDeleteContract()" />
 } @else {
 
 <nav class="navbar sub-nav">
@@ -35,8 +36,11 @@
         <div class="level">
             <div class="level-left">
                     <div class="level-item">
-                        <p>Transition from Status {{ selectedContract().status }} to </p>
+                        <p>Current Status {{ selectedContract().status }}</p>
                     </div>
+                @if (transitions().length > 0) {
+                    <p>Transition to</p>
+                }
                 @for (transition of transitions(); track transition.toStatus){
                 <div class="level-item">
                     <button class="button is-primary" (click)="onTransitionContract(transition.toStatus)">

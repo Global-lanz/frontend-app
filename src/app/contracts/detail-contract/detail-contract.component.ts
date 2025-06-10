@@ -6,10 +6,11 @@ import { CustomersService } from '../../customers/customers.service';
 import { Contract, StatusTransition } from '../contract.model';
 import { Currency } from '../../currency.model';
 import { Customer } from '../../customers/customer.model';
+import { EditContractComponent } from "./edit-contract/edit-contract.component";
 
 @Component({
   selector: 'app-detail-contract',
-  imports: [],
+  imports: [EditContractComponent],
   templateUrl: './detail-contract.component.html',
   styleUrl: './detail-contract.component.css'
 })
