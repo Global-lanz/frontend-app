@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input, signal } from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { ContractsService } from '../contracts.service';
@@ -9,6 +9,7 @@ import { Customer } from '../../customers/customer.model';
 import { Currency } from '../../currency.model';
 import { CurrencyService } from '../../currency.service';
 import { ContractComponent } from './contract/contract.component';
+
 
 @Component({
   selector: 'app-overview-contracts',
@@ -28,7 +29,7 @@ export class OverviewContractsComponent {
   private costumersService = inject(CustomersService);
   private currencyService = inject(CurrencyService);
 
-  contracts = this.contractsService.contracts;
+  contracts = this.contractsService.contracts; //remove option to see all contracts, only selected customers?
   customers = this.costumersService.customers;
 
   isLoading = this.contractsService.isLoading;
@@ -38,7 +39,7 @@ export class OverviewContractsComponent {
   customerselected = computed(() => !!this.selectedCustomer()) //true if customer is selected
 
 
-  //filter and sort computed signals, first filter then sort
+  //filter and sort computed signals, first filter then sort   replace with call to api when customer is selected?
   private filteredContracts = computed(() =>{
       const contracts = this.contracts();
       const selectedCustomerId = this.customerId();
@@ -71,6 +72,10 @@ export class OverviewContractsComponent {
   onAddCustomer(contractData: Partial<Contract>) {
       this.contractsService.newContract(contractData);
       this.isAddingContract.set(false);
+  }
+
+  onCustomerSelectChange(event:any) {console.log
+    ('Selected Option ID:', event, this.customerId());
   }
 
 }

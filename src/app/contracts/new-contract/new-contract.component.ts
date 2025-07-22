@@ -39,6 +39,7 @@ export class NewContractComponent {
       end: formData.form.value.endDate,
       terminationClause: formData.form.value.terminationClause,
       penaltyFee: formData.form.value.penaltyFee,
+      description: formData.form.value.description,
       currencyId: this.customerCurrency()?.currencyId,
     })
   }

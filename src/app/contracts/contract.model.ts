@@ -1,6 +1,7 @@
 export interface Contract {
       contractId: string;
       customerId: string;
+      customer?: any;
       totalAmount: number;
       frequency: string;
       paymentDay: string;
@@ -10,6 +11,7 @@ export interface Contract {
       type: string;
       terminationClause: string;
       penaltyFee: number;
+      description: string;
       currencyId: string;
 }
 

@@ -16,7 +16,7 @@
                 <div class="navbar-item">
                     <label class="label" for="SortOptions">Customer</label>
                     <div class="select">
-                        <select id="CustomerSelect">
+                        <select id="CustomerSelect" (change)="onCustomerSelectChange($event)">
                             <option routerLink="./" [queryParams]="{customerId: undefined}">Show All</option>
                             @for (customer of customers(); track customer.customerId){
                                 <option routerLink="./" [queryParams]="{customerId: customer.customerId}">{{customer.name}}</option>

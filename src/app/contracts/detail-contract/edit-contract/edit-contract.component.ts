@@ -40,6 +40,7 @@ export class EditContractComponent {
       type: this.selectedContract().type,
       terminationClause: formData.form.value.terminationClause,
       penaltyFee: formData.form.value.penaltyFee,
+      description: formData.form.value.description,
       currencyId: this.selectedContractCurrency()?.currencyId || '',
       });
   }

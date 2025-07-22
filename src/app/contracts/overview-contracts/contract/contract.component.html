@@ -1,3 +1,5 @@
 <div class="contract box my-1" [routerLink]="['./contract', contract().contractId]">
-    <p  class="subtitle is-6" >{{ contract().contractId }}</p>
+    <p  class="subtitle is-5" >{{ contract().customer.name }}</p>
+    <p  class="subtitle is-6" >{{ contract().description }}</p>
+    <p  class="subtitle is-7" >{{ contract().contractId }}</p>
 </div>
