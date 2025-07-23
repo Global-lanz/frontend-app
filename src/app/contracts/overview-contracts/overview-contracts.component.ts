@@ -9,6 +9,8 @@ import { Customer } from '../../customers/customer.model';
 import { Currency } from '../../currency.model';
 import { CurrencyService } from '../../currency.service';
 import { ContractComponent } from './contract/contract.component';
+import { httpResource } from '@angular/common/http';
+
 
 
 @Component({
@@ -21,7 +23,7 @@ import { ContractComponent } from './contract/contract.component';
 export class OverviewContractsComponent {
   sort = input<'asc' | 'desc'>('asc');
   sortBy = input<keyof Contract>('status');
-  customerId = input<string | undefined>(undefined);
+  customerId = input<string | undefined>();
   hoverCreate = signal<Boolean>(false);
   isAddingContract = signal<Boolean>(false);
 
@@ -32,24 +34,35 @@ export class OverviewContractsComponent {
   contracts = this.contractsService.contracts; //remove option to see all contracts, only selected customers?
   customers = this.costumersService.customers;
 
-  isLoading = this.contractsService.isLoading;
+  //computed signal to expose to service; replace undefined value with '', endpoint sends all when empty id is sent
+  readonly customerIdOverviewContracts = computed(() => this.customerId() ?? '');
+  
+  contractsResource = this.contractsService.contractsByCustomerResource(this.customerIdOverviewContracts);
+  // Computed signal to extract contracts array safely //empty list if undefined or error
+  contractsList = computed(() => {
+    const resource = this.contractsResource.value() as { content?: Contract[] } | undefined;
+    return resource && Array.isArray(resource.content) ? resource.content : [];
+  });
+  ////
+
+  // isLoading = this.contractsService.isLoading;
 
   selectedCustomer = computed(() => this.customers().find(u => u.customerId === this.customerId()) as Customer);
   selectedCustomerCurrency = computed< Currency >(() => this.currencyService.currencies().find(u => u.currencyId === this.selectedCustomer().currencyId) as Currency);
   customerselected = computed(() => !!this.selectedCustomer()) //true if customer is selected
 
 
-  //filter and sort computed signals, first filter then sort   replace with call to api when customer is selected?
-  private filteredContracts = computed(() =>{
-      const contracts = this.contracts();
-      const selectedCustomerId = this.customerId();
+  ////filter and sort computed signals, first filter then sort   replaced with call to api when customer is selected; filtering in backend
+  // private filteredContracts = computed(() =>{
+  //     const contracts = this.contracts();
+  //     const selectedCustomerId = this.customerId();
 
-      if(selectedCustomerId == undefined) return contracts;
-      return [...contracts].filter((u) => u.customerId === selectedCustomerId)
-  });
+  //     if(selectedCustomerId == undefined) return contracts;
+  //     return [...contracts].filter((u) => u.customerId === selectedCustomerId)
+  // });
 
   sortedFilteredContracts = computed(() => {
-      const contracts = this.filteredContracts();
+      const contracts = this.contractsList();
       const property = this.sortBy();
       const order = this.sort();
 
