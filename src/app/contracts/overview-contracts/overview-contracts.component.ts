@@ -1,5 +1,5 @@
-import { Component, computed, inject, input, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, computed, inject, input, model, signal } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 
 import { ContractsService } from '../contracts.service';
 import { Contract } from '../contract.model';
@@ -9,8 +9,6 @@ import { Customer } from '../../customers/customer.model';
 import { Currency } from '../../currency.model';
 import { CurrencyService } from '../../currency.service';
 import { ContractComponent } from './contract/contract.component';
-import { httpResource } from '@angular/common/http';
-
 
 
 @Component({
@@ -23,15 +21,16 @@ import { httpResource } from '@angular/common/http';
 export class OverviewContractsComponent {
   sort = input<'asc' | 'desc'>('asc');
   sortBy = input<keyof Contract>('status');
-  customerId = input<string | undefined>();
+  customerId = model<string>('');
   hoverCreate = signal<Boolean>(false);
   isAddingContract = signal<Boolean>(false);
 
   private contractsService = inject(ContractsService);
   private costumersService = inject(CustomersService);
   private currencyService = inject(CurrencyService);
+  private router = inject(Router);
 
-  contracts = this.contractsService.contracts; //remove option to see all contracts, only selected customers?
+  // contracts = this.contractsService.contracts; //remove option to see all contracts, only selected customers?
   customers = this.costumersService.customers;
 
   //computed signal to expose to service; replace undefined value with '', endpoint sends all when empty id is sent
@@ -87,8 +86,13 @@ export class OverviewContractsComponent {
       this.isAddingContract.set(false);
   }
 
-  onCustomerSelectChange(event:any) {console.log
-    ('Selected Option ID:', event, this.customerId());
+  onCustomerSelectChange(event: Event) {console.log
+    ('Selected Option ID:', (event.target as HTMLSelectElement).value, this.customerId()); //for debugging
+    const customerId = (event.target as HTMLSelectElement).value || '';
+    this.router.navigate([], {
+      queryParams: { customerId },
+      queryParamsHandling: 'merge'
+      }
+    );
   }
-
 }

@@ -16,10 +16,15 @@
                 <div class="navbar-item">
                     <label class="label" for="SortOptions">Customer</label>
                     <div class="select">
-                        <select id="CustomerSelect" (change)="onCustomerSelectChange($event)">
-                            <option routerLink="./" [queryParams]="{customerId: undefined}">Show All</option>
+                        <select id="CustomerSelect" [value]="customerId()" (change)="onCustomerSelectChange($event)">
+                        
+                            <!-- <option routerLink="./" [queryParams]="{customerId: undefined}">Show All</option>
                             @for (customer of customers(); track customer.customerId){
                                 <option routerLink="./" [queryParams]="{customerId: customer.customerId}">{{customer.name}}</option>
+                            } -->
+                            <option routerLink="./" [value]="">Show All</option>
+                            @for (customer of customers(); track customer.customerId){
+                                <option [value]="customer.customerId">{{customer.name}}</option>
                             }
                         </select>
                     </div>
@@ -62,7 +67,7 @@
             </span>
             <span>Loading...</span>
         </span>
-        } @else if (contracts().length === 0) {
+        } @else if (sortedFilteredContracts().length === 0) {
         <div class="no-contracts">
             <p>No contracts found.</p>
         </div>
