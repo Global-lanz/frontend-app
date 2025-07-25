@@ -1,5 +1,6 @@
-import { Component, computed, inject, input, model, signal } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Component, computed, inject, input, signal } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+
 
 import { ContractsService } from '../contracts.service';
 import { Contract } from '../contract.model';
@@ -9,11 +10,14 @@ import { Customer } from '../../customers/customer.model';
 import { Currency } from '../../currency.model';
 import { CurrencyService } from '../../currency.service';
 import { ContractComponent } from './contract/contract.component';
+import { QueryParamService } from '../../queryparam.service';
+import { FormsModule } from '@angular/forms';
+
 
 
 @Component({
   selector: 'app-overview-contracts',
-  imports: [NewContractComponent, NewContractComponent, ContractComponent, RouterLink],
+  imports: [NewContractComponent, NewContractComponent, ContractComponent, RouterLink, FormsModule],
   templateUrl: './overview-contracts.component.html',
   styleUrl: './overview-contracts.component.css'
 })
@@ -21,14 +25,19 @@ import { ContractComponent } from './contract/contract.component';
 export class OverviewContractsComponent {
   sort = input<'asc' | 'desc'>('asc');
   sortBy = input<keyof Contract>('status');
-  customerId = model<string>('');
+  // customerId = input.required<string>();
   hoverCreate = signal<Boolean>(false);
   isAddingContract = signal<Boolean>(false);
 
   private contractsService = inject(ContractsService);
   private costumersService = inject(CustomersService);
   private currencyService = inject(CurrencyService);
+  private queryParamService = inject(QueryParamService);
   private router = inject(Router);
+  private activatedRoute = inject(ActivatedRoute);
+
+  customerId = this.queryParamService.get('customerId');
+
 
   // contracts = this.contractsService.contracts; //remove option to see all contracts, only selected customers?
   customers = this.costumersService.customers;
@@ -88,11 +97,5 @@ export class OverviewContractsComponent {
 
   onCustomerSelectChange(event: Event) {console.log
     ('Selected Option ID:', (event.target as HTMLSelectElement).value, this.customerId()); //for debugging
-    const customerId = (event.target as HTMLSelectElement).value || '';
-    this.router.navigate([], {
-      queryParams: { customerId },
-      queryParamsHandling: 'merge'
-      }
-    );
   }
 }

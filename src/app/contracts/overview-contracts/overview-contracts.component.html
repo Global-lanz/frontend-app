@@ -16,19 +16,19 @@
                 <div class="navbar-item">
                     <label class="label" for="SortOptions">Customer</label>
                     <div class="select">
-                        <select id="CustomerSelect" [value]="customerId()" (change)="onCustomerSelectChange($event)">
+                        <select id="CustomerSelect" [(ngModel)]="customerId">
                         
                             <!-- <option routerLink="./" [queryParams]="{customerId: undefined}">Show All</option>
                             @for (customer of customers(); track customer.customerId){
                                 <option routerLink="./" [queryParams]="{customerId: customer.customerId}">{{customer.name}}</option>
                             } -->
-                            <option routerLink="./" [value]="">Show All</option>
+                            <option value="">Show All</option>
                             @for (customer of customers(); track customer.customerId){
                                 <option [value]="customer.customerId">{{customer.name}}</option>
                             }
                         </select>
                     </div>
-                        <label class="label" for="SortOptions">SortBy</label>
+                    <label class="label" for="SortOptions">SortBy</label>
                     <div class="field-body has-addons">
                         <p class="select">
                             <select id="SortOptions">
@@ -60,6 +60,7 @@
 
 
     <div class="content-area">
+        <span>CustomerId signal; for debugging: {{customerId()}}</span>
         @if(contractsResource.isLoading()) {
         <span class="icon-text">
             <span class="icon">
