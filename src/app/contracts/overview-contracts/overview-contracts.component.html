@@ -60,8 +60,12 @@
 
 
     <div class="content-area">
-        <span>CustomerId signal; for debugging: {{customerId()}}</span>
-        @if(contractsResource.isLoading()) {
+        <p>CustomerId signal; for debugging: {{customerId()}}</p>
+        <p>resource error signal; for debugging: {{contractsResource.error()}}</p>
+        <p>resource loading signal; for debugging: {{contractsResource.isLoading()}}</p>
+        @if (contractsResource.error()) {
+        <p>Error loading contracts: {{contractsResource.error()}}</p>
+        } @else if(contractsResource.isLoading() === true) {
         <span class="icon-text">
             <span class="icon">
                 <i class="fa-solid fa-spinner fa-spin-pulse"></i>
@@ -72,7 +76,7 @@
         <div class="no-contracts">
             <p>No contracts found.</p>
         </div>
-        }
+        } 
         <div>
             <ul id="contracts">
                 @for (contract of sortedFilteredContracts(); track contract.contractId) {

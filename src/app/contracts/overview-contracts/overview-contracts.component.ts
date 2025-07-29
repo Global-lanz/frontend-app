@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, signal } from '@angular/core';
+import { Component, computed, inject, input, signal, effect, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 
@@ -12,6 +12,8 @@ import { CurrencyService } from '../../currency.service';
 import { ContractComponent } from './contract/contract.component';
 import { QueryParamService } from '../../queryparam.service';
 import { FormsModule } from '@angular/forms';
+import { MessageService } from '../../message/message.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 
@@ -19,7 +21,8 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-overview-contracts',
   imports: [NewContractComponent, NewContractComponent, ContractComponent, RouterLink, FormsModule],
   templateUrl: './overview-contracts.component.html',
-  styleUrl: './overview-contracts.component.css'
+  styleUrl: './overview-contracts.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class OverviewContractsComponent {
@@ -33,31 +36,44 @@ export class OverviewContractsComponent {
   private costumersService = inject(CustomersService);
   private currencyService = inject(CurrencyService);
   private queryParamService = inject(QueryParamService);
-  private router = inject(Router);
-  private activatedRoute = inject(ActivatedRoute);
+  private messageService = inject(MessageService);
 
-  customerId = this.queryParamService.get('customerId');
+  private lastError: string | undefined;
 
-
-  // contracts = this.contractsService.contracts; //remove option to see all contracts, only selected customers?
   customers = this.costumersService.customers;
 
-  //computed signal to expose to service; replace undefined value with '', endpoint sends all when empty id is sent
+  //get and set customerId with QueryParamService
+  customerId = this.queryParamService.get('customerId');
+  //computed signal to expose to service; replaces undefined value with '', endpoint sends all when empty id is sent
   readonly customerIdOverviewContracts = computed(() => this.customerId() ?? '');
   
-  contractsResource = this.contractsService.contractsByCustomerResource(this.customerIdOverviewContracts);
+  //httpResource updating when signals change
+  contractsResource = this.contractsService.contractsResource(this.customerIdOverviewContracts);
   // Computed signal to extract contracts array safely //empty list if undefined or error
   contractsList = computed(() => {
     const resource = this.contractsResource.value() as { content?: Contract[] } | undefined;
     return resource && Array.isArray(resource.content) ? resource.content : [];
   });
-  ////
 
-  // isLoading = this.contractsService.isLoading;
+  //effects
+  // private logEffect = effect(() => {
+  //   console.log('contractsList signal updated:', this.contractsList());
+  //   this.contractsService.messageService.setMessage('info', 'Contracts updated'); // for debugging
+  // });
+
+  private errorEffect = effect(() => {
+    const error = this.contractsResource.error();
+    console.log('Error effect triggered:', error);
+    if (error)
+      this.contractsService.messageService.setMessage('error', `Error fetching contracts: ${error.message}`);
+  });
+
+
 
   selectedCustomer = computed(() => this.customers().find(u => u.customerId === this.customerId()) as Customer);
   selectedCustomerCurrency = computed< Currency >(() => this.currencyService.currencies().find(u => u.currencyId === this.selectedCustomer().currencyId) as Currency);
   customerselected = computed(() => !!this.selectedCustomer()) //true if customer is selected
+
 
 
   ////filter and sort computed signals, first filter then sort   replaced with call to api when customer is selected; filtering in backend

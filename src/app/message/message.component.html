@@ -1,15 +1,4 @@
 
-<!-- <div class="message" [ngClass]="getClass(message()?.type ?? 'is-primary')">
-    <div class="message-body">
-        {{ message()?.text }}
-    </div>
-</div> -->
-
-<!-- variant -->
-<!-- <div class="notification" [ngClass]="getClass(message()?.type ?? 'is-primary')">
-    {{ message()?.text }}
-</div> -->
-
 <div class="toast-notifications">
     @for (msg of messages(); track msg.id) {
         <div class="notification is-light is-flex" [ngClass]="getClass(msg.type)">

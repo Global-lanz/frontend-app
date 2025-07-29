@@ -36,7 +36,5 @@ export class MessageService {
   getMessages() {
     return this.messages.asReadonly();
   }
-  
-
 
 }

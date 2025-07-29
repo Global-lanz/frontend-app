@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 
 import { Currency } from "./currency.model";
 import { tap } from "rxjs";
+import { MessageService } from "./message/message.service";
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +12,12 @@ export class CurrencyService {
 
   currencies = signal<Currency[]>([]);
   isLoading = signal<boolean>(false);
-  errorMessage = signal<string | null>(null);
   successMessage = signal<string | null>(null);
 
   private http = inject(HttpClient);
   baseUrl = 'http://localhost:8080';
+
+  private messageService = inject(MessageService);
 
   getCurrencies() {
     this.isLoading.set(true);
@@ -27,7 +29,7 @@ export class CurrencyService {
         },
         error: error => {
           console.error('Error fetching currencies', error);
-          this.errorMessage.set(error.message);
+          this.messageService.setMessage('error',`Error fetching currency data: ${error.message}`);
         },
         complete: () => { this.isLoading.set(false); },
       })

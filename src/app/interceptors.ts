@@ -21,7 +21,7 @@ export function loggingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerF
 export function errorInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
     return next(req).pipe(catchError((error: HttpErrorResponse)=> {
         console.error(error.status,error.message);
-        return throwError(() => new Error(error.error?.message || 'Something went wrong :( Please try again later.'))
+        return throwError(() => new Error(error?.message || 'Something went wrong :( Please try again later.'))
         })
     );
 }
