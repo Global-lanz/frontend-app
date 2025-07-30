@@ -23,7 +23,8 @@ export class DetailContractComponent {
   contractId = input.required<string>();
   isEditingContract = signal<Boolean>(false);
   
-  selectedContract = computed(() => this.contractsService.contracts().find(u => u.contractId === this.contractId()) as Contract);
+  // selectedContract = computed(() => this.contractsService.contracts().find(u => u.contractId === this.contractId()) as Contract);
+  selectedContract = computed(() => this.contractsService.contract()!)
   selectedContractCurrency = computed< Currency | undefined >(() => this.currencyService.currencies().find(u => u.currencyId === this.selectedContract().currencyId) as Currency);
   selectedContractCustomer = computed< Customer >(() => this.customerService.customers().find(u => u.customerId === this.selectedContract().customerId) as Customer);
   transitions = computed< StatusTransition[] >(() => this.contractsService.statusTransitions().filter(u => u.fromStatus === this.selectedContract().status) as StatusTransition[]);
@@ -53,6 +54,10 @@ export class DetailContractComponent {
 
   //not supported by backend
   onDeleteContract() {
+  }
+
+  ngOnInit() {
+    this.contractsService.getContract(this.contractId())
   }
 
 }
