@@ -44,30 +44,13 @@ export class OverviewContractsComponent {
 
   //get and set customerId with QueryParamService
   customerId = this.queryParamService.get('customerId');
-  //computed signal to expose to service; replaces undefined value with '', endpoint sends all when empty id is sent
-  readonly customerIdOverviewContracts = computed(() => this.customerId() ?? '');
+  //update customerId in service per effect
+  private updateCustomerIdService = effect(() => {this.contractsService.customerIdService.set(this.customerId())})
+  //signals from httpResource in Service
+  contractsList = this.contractsService.contractsList;
+  isLoading = this.contractsService.resourceIsLoading;
+  error = this.contractsService.resourceError;
   
-  //httpResource updating when signals change
-  contractsResource = this.contractsService.contractsResource(this.customerIdOverviewContracts);
-  // Computed signal to extract contracts array safely //empty list if undefined or error
-  contractsList = computed(() => {
-    const resource = this.contractsResource.value() as { content?: Contract[] } | undefined;
-    return resource && Array.isArray(resource.content) ? resource.content : [];
-  });
-
-  //effects
-  // private logEffect = effect(() => {
-  //   console.log('contractsList signal updated:', this.contractsList());
-  //   this.contractsService.messageService.setMessage('info', 'Contracts updated'); // for debugging
-  // });
-
-  private errorEffect = effect(() => {
-    const error = this.contractsResource.error();
-    console.log('Error effect triggered:', error);
-    if (error)
-      this.contractsService.messageService.setMessage('error', `Error fetching contracts: ${error.message}`);
-  });
-
 
 
   selectedCustomer = computed(() => this.customers().find(u => u.customerId === this.customerId()) as Customer);

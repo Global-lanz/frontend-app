@@ -61,11 +61,12 @@
 
     <div class="content-area">
         <p>CustomerId signal; for debugging: {{customerId()}}</p>
-        <p>resource error signal; for debugging: {{contractsResource.error()}}</p>
-        <p>resource loading signal; for debugging: {{contractsResource.isLoading()}}</p>
-        @if (contractsResource.error()) {
-        <p>Error loading contracts: {{contractsResource.error()}}</p>
-        } @else if(contractsResource.isLoading() === true) {
+        <!-- <p>resource error signal; for debugging: {{contractsResource.error()}}</p> -->
+        <p>resource loading signal; for debugging: {{isLoading()}}</p>
+        <!-- @if (contractsResource.error()) {
+        <p>Error loading contracts: {{contractsResource.error()}}</p> -->
+        <!-- }  -->
+        @if(isLoading() === true) {
         <span class="icon-text">
             <span class="icon">
                 <i class="fa-solid fa-spinner fa-spin-pulse"></i>
