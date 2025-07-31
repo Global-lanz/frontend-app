@@ -2,7 +2,7 @@
     <p class="menu-label">General</p>
     <ul class="menu-list has-text-weight-semibold">
         <li><a routerLink="/customers" [queryParams]="undefined" routerLinkActive="is-active">Customers</a></li>
-        <li><a routerLink="/contracts" [queryParams]="{customerId: ''}"routerLinkActive="is-active">Contracts</a></li>
+        <li><a routerLink="/contracts" [queryParams]="{customerId: '',pageNumber: 0,pageSize: 10} "routerLinkActive="is-active">Contracts</a></li>
         <li><a>Invoices</a></li>
       </ul>
 </aside>

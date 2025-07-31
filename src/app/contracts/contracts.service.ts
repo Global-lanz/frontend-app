@@ -3,6 +3,7 @@ import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { MessageService } from '../message/message.service';
 import { Contract, StatusTransition } from './contract.model';
 import { HttpClient, httpResource } from '@angular/common/http';
+import { Pagination } from '../pagination.model';
 
 
 @Injectable({
@@ -167,13 +168,20 @@ export class ContractsService {
   ///httpResource automatically updates on input signal changes; exposes signals for Loading and error(todo)
   //input signals are updated via effect in overview component
   customerIdService = signal<string | undefined>(undefined);
+  pageSizeService = signal<number>(10);
+  pageNumberService = signal<number>(0);
   contractsResource = httpResource(() =>
-      `${this.baseUrl}/finance/contract/search?customerId=${this.customerIdService()}&pageNumber=0&pageSize=10`
+      `${this.baseUrl}/finance/contract/search?customerId=${this.customerIdService()}&pageNumber=${this.pageNumberService()}&pageSize=${this.pageSizeService()}`
   );
   contractsList = computed(() => {
     const resource = this.contractsResource.value() as { content?: Contract[] } | undefined;
     return resource && Array.isArray(resource.content) ? resource.content : [];
   });
+  contractsPagination = computed(() => {
+    const resource = this.contractsResource.value() as  Pagination | undefined;
+    return resource
+  });
+
   resourceIsLoading = computed(() => this.contractsResource.isLoading());
   resourceError = computed(() => this.contractsResource.error());
 
