@@ -66,7 +66,7 @@ export const routes: Routes = [
     },
     {   
         path: '', //redirect to customers on login
-        redirectTo: '/customers', 
+        redirectTo: '/customers?pageSize=20&pageNumber=0', 
         pathMatch: 'full' 
     },
 

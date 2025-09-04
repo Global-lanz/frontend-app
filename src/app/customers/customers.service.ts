@@ -1,19 +1,14 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 
-import { DUMMY_CUSTOMERS } from '../../dummy_data';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, httpResource } from '@angular/common/http';
 import { Customer } from './customer.model';
-import { tap } from 'rxjs';
 import { MessageService } from '../message/message.service';
+import { Pagination } from '../pagination.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomersService {
-// for Dummy data
-  // get customers() {
-  //   return DUMMY_CUSTOMERS;
-  // };
 
   messageService = inject(MessageService);
 
@@ -26,6 +21,7 @@ export class CustomersService {
   private http = inject(HttpClient);
   baseUrl = 'http://localhost:8080';
 
+  //
   getAllCustomers() {
     this.isLoading.set(true);
     // this.errorMessage.set(null);
@@ -114,6 +110,8 @@ export class CustomersService {
 
 
   //http calls
+
+  //now using httpResource with search customer API
   getCustomers() {
     return this.http.get<{customers: Customer[]}>(`${this.baseUrl}/customer`)
   }
@@ -133,6 +131,33 @@ export class CustomersService {
   deleteCustomer(id: string) {
     return this.http.delete(`${this.baseUrl}/customer/ ${id}`)
   }
+
+
+  //httpResource
+  customerSearchService = signal<string>('');
+  pageSizeService = signal<number>(10);
+  pageNumberService = signal<number>(0);
+  customersResource = httpResource(() =>
+      `${this.baseUrl}/customer/search?name=${this.customerSearchService()}&pageNumber=${this.pageNumberService()}&pageSize=${this.pageSizeService()}`
+  );
+  customersList = computed(() => {
+    const resource = this.customersResource.value() as { content?: Customer[] } | undefined;
+    return resource && Array.isArray(resource.content) ? resource.content : [];
+  });
+  customersPagination = computed(() => {
+    const resource = this.customersResource.value() as  Pagination | undefined;
+    return resource
+  });
+
+  resourceIsLoading = computed(() => this.customersResource.isLoading());
+  resourceError = computed(() => this.customersResource.error());
+
+  private errorEffect = effect(() => {
+    const error = this.customersResource.error();
+    console.log('Error effect triggered:', error);
+    if (error !== undefined && error.message)
+      this.messageService.setMessage('error', `Error fetching customers: ${error?.message ?? ''}`);
+  });
 
 
 }

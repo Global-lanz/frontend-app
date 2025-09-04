@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, signal, effect, ChangeDetectionStrategy, Signal } from '@angular/core';
+import { Component, computed, inject, input, signal, effect, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 

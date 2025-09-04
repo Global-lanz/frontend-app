@@ -2,69 +2,126 @@
 <app-new-customer (cancel)="onCancelAddCustomer()" (add)="onAddCustomer($event)" />
 } @else {
 
-    <nav class="navbar sub-nav">
-            <div class="navbar-start">
-                <div class="navbar-item">
-                    <button class="button is-primary" (click)="onStartAddCustomer()"
-                        (mouseenter)="hoverCreate.set(true)" (mouseleave)="hoverCreate.set(false)">
-                        <span class="icon">
-                            <i class="fa-solid fa-plus" [class.fa-beat]="hoverCreate()"></i>
-                        </span>
-                        <span>Add Customer</span>
-                    </button>
-                </div>
-                <div class="navbar-item">
-                    <label class="label" for="SortOptions">Sort by</label>
-                <div class="field-body has-addons">
-                    <p class="select">
-                        <select id="SortOptions">
-                            <option routerLink="./" [queryParams]="{sortBy: 'name'}" queryParamsHandling="merge">Name</option>
-                            <option routerLink="./" [queryParams]="{sortBy: 'annualRevenue'}" queryParamsHandling="merge">Revenue</option>
-                        </select>
-                    </p>
-                    <p class="control">
-                        <button class="button" routerLink="./" [queryParams]="{sort: 'asc'}"
-                            queryParamsHandling="merge">
-                            <span class="icon is-small">
-                                <i class="fa-solid fa-arrow-up-wide-short"></i>
-                            </span>
-                        </button>
-                    </p>
-                    <p class="control">
-                        <button class="button" routerLink="./" [queryParams]="{sort: 'desc'}"
-                            queryParamsHandling="merge">
-                            <span class="icon is-small">
-                                <i class="fa-solid fa-arrow-down-wide-short"></i>
-                            </span>
-                        </button>
-                    </p>
-                </div>
-                </div>
-            </div>
-    </nav>
-        
-
-
-    <div class="content-area">
-        @if(isLoading()) {
-        <span class="icon-text">
-            <span class="icon">
-                <i class="fa-solid fa-spinner fa-spin-pulse"></i>
-            </span>
-            <span>Loading...</span>
-        </span>
-        } @else if (customers().length === 0) {
-        <div class="no-customers">
-            <p>No customers found.</p>
+<nav class="navbar sub-nav">
+    <div class="navbar-start">
+        <div class="navbar-item">
+            <button class="button is-primary" (click)="onStartAddCustomer()" (mouseenter)="hoverCreate.set(true)"
+                (mouseleave)="hoverCreate.set(false)">
+                <span class="icon">
+                    <i class="fa-solid fa-plus" [class.fa-beat]="hoverCreate()"></i>
+                </span>
+                <span>Add Customer</span>
+            </button>
         </div>
-        }
-        <div>
-            <ul id="customers">
-                @for (customer of sortedCustomers(); track customer.customerId) {
-                <app-customer [customer]="customer" />
-                }
-            </ul>
+        <div class="navbar-item">
+            <label class="label" for="SortOptions">Sort by</label>
+            <div class="field-body has-addons">
+                <p class="select">
+                    <select id="SortOptions">
+                        <option routerLink="./" [queryParams]="{sortBy: 'name'}" queryParamsHandling="merge">Name
+                        </option>
+                        <option routerLink="./" [queryParams]="{sortBy: 'annualRevenue'}" queryParamsHandling="merge">
+                            Revenue</option>
+                    </select>
+                </p>
+                <p class="control">
+                    <button class="button" routerLink="./" [queryParams]="{sort: 'asc'}" queryParamsHandling="merge">
+                        <span class="icon is-small">
+                            <i class="fa-solid fa-arrow-up-wide-short"></i>
+                        </span>
+                    </button>
+                </p>
+                <p class="control">
+                    <button class="button" routerLink="./" [queryParams]="{sort: 'desc'}" queryParamsHandling="merge">
+                        <span class="icon is-small">
+                            <i class="fa-solid fa-arrow-down-wide-short"></i>
+                        </span>
+                    </button>
+                </p>
+            </div>
         </div>
     </div>
+    <div class="navbar-end">
+        <div class="navbar-item">
+            <label class="label" for="PageSize">Show per page</label>
+            <div class="select">
+                <select id="PageSize" [(ngModel)]="pageSize" (change)="onPageSizeChange()">
+                    <option value="1">1</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                </select>
+            </div>
+        </div>
+        <div class="navbar-item">
+            <div class="field">
+                <p class="control has-icons-left">
+                    <input 
+                        class="input" 
+                        type="text" 
+                        placeholder="Search customers..."
+                        [(ngModel)]="customerSearch"
+                        (ngModelChange)="onCustomerSearchChange()"
+                    >
+                    <span class="icon is-small is-left">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+
+<div class="content-area">
+    @if((pagination()?.last && pagination()?.first) !== true) {
+    <nav class="pagination" role="navigation">
+        <ul class="pagination-list">
+            <button class="button" [disabled]="pagination()?.first" routerLink="./"
+                [queryParams]="{ pageNumber: +pageNumber() - 1 }" queryParamsHandling="merge"
+                queryParamsHandling="merge">
+                <span class="icon is-small">
+                    <i class="fa-solid fa-angle-left"></i>
+                </span>
+            </button>
+            @for(page of [].constructor(pagination()?.totalPages); track $index) {
+            <li>
+                <a routerLink="./" [queryParams]="{ pageNumber: $index }" queryParamsHandling="merge"
+                    class="pagination-link" [class.is-current]="$index === pagination()?.number">
+                    {{ $index + 1 }}
+                </a>
+            </li>
+            }
+            <button class="button" [disabled]="pagination()?.last" routerLink="./"
+                [queryParams]="{ pageNumber: +pageNumber() + 1 }" queryParamsHandling="merge"
+                queryParamsHandling="merge">
+                <span class="icon is-small">
+                    <i class="fa-solid fa-angle-right"></i>
+                </span>
+            </button>
+        </ul>
+    </nav>
+    }
+    @if(isLoading()) {
+    <span class="icon-text">
+        <span class="icon">
+            <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+        </span>
+        <span>Loading...</span>
+    </span>
+    } @else if (customersList().length === 0) {
+    <div class="no-customers">
+        <p>No customers found.</p>
+    </div>
+    }
+    <div>
+        <ul id="customers">
+            @for (customer of customersList(); track customer.customerId) {
+            <app-customer [customer]="customer" />
+            }
+        </ul>
+    </div>
+</div>
 
 }
